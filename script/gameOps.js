@@ -86,9 +86,9 @@ export function createCard(card, loc) {
     // Add a single class based on card color/type
     if (card.color) {
         if (card.color === 'any' || Array.isArray(card.color)) {
-            if (baseImg) baseImg.setAttribute('xlink:href', '/assets/wildcard.png');
+            if (baseImg) baseImg.setAttribute('xlink:href', 'assets/wildcard.png');
         } else {
-            if (baseImg) baseImg.setAttribute('xlink:href', `/assets/defaultcard.png`);
+            if (baseImg) baseImg.setAttribute('xlink:href', `assets/defaultcard.png`);
             cardEl.classList.add(card.color.toLowerCase());
         }
     }
