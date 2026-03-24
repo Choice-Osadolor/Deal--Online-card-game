@@ -51,7 +51,7 @@ main section{
     height: 180px;
     width: 100px;
     position: relative;
-    background-image: url('/assets/deckcards.png');
+    background-image: url('../assets/deckcards.png');
     background-size: contain;
     background-repeat: no-repeat;
     
