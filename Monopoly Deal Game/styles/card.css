@@ -1,0 +1,30 @@
+/* Default look */
+.deckcard {
+  --fill-color: grey; /* fallback */
+}
+
+.deckcard .stack,
+.deckcard .header {
+  fill: var(--fill-color);
+}
+
+/* Property colors */
+.deckcard.brown { --fill-color: rgb(156, 104, 104); }
+.deckcard.lightblue { --fill-color: lightblue; }
+.deckcard.pink { --fill-color: pink; }
+.deckcard.orange { --fill-color: orange; }
+.deckcard.red { --fill-color: red; }
+.deckcard.yellow { --fill-color: yellow; }
+.deckcard.green { --fill-color: green; }
+.deckcard.darkblue { --fill-color: darkblue; }
+
+/* Special cards */
+.deckcard.money { --fill-color: seagreen; }
+.deckcard.action { --fill-color: rgb(156, 104, 104); }
+/* Wildcard deckcard */
+.deckcard.wildcard .header,
+.deckcard.deckcard .stack,
+.deckcard.deckcard .cardvalue{
+    display: none;
+}
+

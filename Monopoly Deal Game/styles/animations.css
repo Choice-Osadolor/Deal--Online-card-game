@@ -1,0 +1,93 @@
+/* ================= Base Card ================= */
+
+#deck .deckcard {
+  width: 130px;
+  height: 180px;
+  perspective: 1000px;
+}
+
+/* Inner flip container */
+.deckcard-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s;
+}
+
+/* Front & Back */
+.deckcard-front,
+.deckcard-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+/* Back = visible first */
+.deckcard-back {
+  transform: rotateY(0deg);
+}
+
+/* Front hidden until flipped */
+.deckcard-front {
+  transform: rotateY(180deg);
+}
+
+/* ================= Flip ================= */
+
+.deckcard.flip .deckcard-inner {
+  transform: rotateY(180deg);
+}
+
+/* ================= Deck ================= */
+
+.deckcard.on-deck {
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+/* ================= Hand ================= */
+
+/* Always show front in hand */
+.deckcard.in-hand .deckcard-inner {
+  transform: rotateY(180deg);
+}
+
+/* Hide back completely */
+.deckcard.in-hand .deckcard-back {
+  display: none;
+}
+
+/* ================= Sets[properties,bank,action] ================= */
+
+/* Always show front in hand */
+.deckcard.in-set .deckcard-inner {
+  transform: rotateY(180deg);
+
+}
+
+/* Hide back completely */
+.deckcard.in-set .deckcard-back {
+  display: none;
+}
+
+.properties .deckcard {
+  width: 100px;
+  height: 150px;
+  perspective: 1000px;
+}
+
+/* ================= Active ================= */
+
+.deckcard.active {
+  transform: translateY(-100px);
+  z-index: 10;
+}
+
+/* ================= Zoom ================= */
+
+.deckcard.zoomed {
+  transform: scale(2);
+  transition: transform 0.5s;
+}
