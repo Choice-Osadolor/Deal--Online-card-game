@@ -4,7 +4,7 @@
 body{
     height: 100vh;
     position: relative;
-    background-image: url('../assets/grassgreen.png');
+    background-image: url('assets/grassgreen.png');
     background-size: cover;
     width:100%;
     background-repeat: no-repeat;
@@ -13,7 +13,7 @@ body{
 }
 main{
     margin-top:20px;
-    background-image: url('../assets/woodenboard.png');
+    background-image: url('assets/woodenboard.png');
     background-size: cover;
     background-repeat:repeat-x;
     background-position: center;
