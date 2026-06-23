@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="styles/animations.css">
     <link rel="stylesheet" href="styles/card.css">
 </head>
-<body style="position: relative;  background-image: url(assets/gamebg1.png); background-size: 100% 100vh;  background-repeat: no-repeat;">
+<body>
 
 <header>
 
@@ -21,7 +21,7 @@
 
 <article>
       <h1>Your Turn</h1>
-   <p>Money: $15</p>
+   <p id="bank"></p>
 </article>
 
 
@@ -35,8 +35,9 @@
  </div>
  
 <!-- Action Cards -->
-<section class="action">
-  <img src="assets/wildcard.png" alt="" style="width: 60%;">
+<section id="discard" style="background-color: aquamarine; width: 40vw; height: 40%;">
+  <img src="assets/wildcard.png" alt="" style="width: 30%;">
+
 </section>
 <!-- <section class="bank"></section> -->
 
@@ -50,23 +51,23 @@
 
 </section>
 
-
+<section id="ComputerHand" style="width: 70%; height: 15em;"></section>
 <section id="hand"></section>
-  <button id="playcard_btn" style="position: absolute; right: 10%; top: 50%;" >play card</button>
+
+<div id="controls">  
+  <button id="endturn_btn" class="disabled">end Turn</button>
+
+  <button id="playcard_btn" class="disabled">play card</button>
+  <button id="startgame_btn">Start Game</button>
+  <button id="bankcard_btn" class="disabled">Bank Card</button>
+  <button id="discard_btn" class="disabled">Discard Card</button>
+</div>
 
 
 </main>
 
 <!--------------------------------------- Templates ---------------------------->
 
-<!-- <template id="cardtemplate">
-   <div class="deckcard card">
-      <div class="deckcard-inner">
-          <img src="/assets/backcard.png" alt="card" class="backcard deckcard-back">
-          <img src="/assets/greencard.png" alt="card" class="frontcard deckcard-front">
-       </div>
-   </div>
-</template> -->
 
 <template id="cardtemplate">
 

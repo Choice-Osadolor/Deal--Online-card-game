@@ -49,14 +49,22 @@
 
 /* ================= Hand ================= */
 
-/* Always show front in hand */
-.deckcard.in-hand .deckcard-inner {
-  transform: rotateY(180deg);
+/* Player hand - show fronts */
+.deckcard.in-hand:not(.hidden-card) .deckcard-inner {
+    transform: rotateY(180deg);
 }
 
-/* Hide back completely */
-.deckcard.in-hand .deckcard-back {
-  display: none;
+.deckcard.in-hand:not(.hidden-card) .deckcard-back {
+    display: none;
+}
+
+/* Computer hand - keep backs showing */
+.deckcard.in-hand.hidden-card .deckcard-inner {
+    transform: rotateY(0deg);
+}
+
+.deckcard.in-hand.hidden-card .deckcard-back {
+    display: block;
 }
 
 /* ================= Sets[properties,bank,action] ================= */
@@ -71,6 +79,8 @@
 .deckcard.in-set .deckcard-back {
   display: none;
 }
+
+
 
 .properties .deckcard {
   width: 100px;
@@ -91,3 +101,5 @@
   transform: scale(2);
   transition: transform 0.5s;
 }
+
+

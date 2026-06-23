@@ -1,6 +1,6 @@
 /* Default look */
 .deckcard {
-  --fill-color: grey; /* fallback */
+  --fill-color: rgb(146, 123, 156); /* fallback */
 }
 
 .deckcard .stack,
