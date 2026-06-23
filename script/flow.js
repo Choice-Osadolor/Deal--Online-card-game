@@ -49,12 +49,14 @@ export function computerTurn() {
                 gameState.selectedCard=card;
                 playCard(player);
                 updateGame();    
-            }
+            }            
     })
-    // End computer turn after a delay
+
     setTimeout(() => {
-        endTurn();
-    }, 1000);
+        endTurn()
+    }, 2000);
+
+
 }
 
 export function endGame(){
