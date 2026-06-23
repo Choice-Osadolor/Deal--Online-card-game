@@ -35,8 +35,8 @@ start.addEventListener('click', () => {
 
     // Add end turn button
     const endTurnBtn = document.getElementById('endturn_btn');
-    endTurnBtn.style.cssText = 'position: absolute; right: 10%; top: 60%;';
-    
+
+
     endTurnBtn.addEventListener('click', () => {
             endTurn();
     });

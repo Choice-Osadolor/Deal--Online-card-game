@@ -1,4 +1,4 @@
-import { playCard,drawCard,getCurrentPlayer,transfercard, playerProperties} from "./gameOps.js";
+import { playCard,drawCard,getCurrentPlayer,playerProperties} from "./gameOps.js";
 import { gameState } from "./gameState.js";
 import { updateGame ,dealCards} from "./render.js";
 

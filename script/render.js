@@ -1,5 +1,6 @@
-import {createCard,drawCard,shuffleDeck,getCurrentPlayer} from './gameOps.js'
+import {createCard,drawCard,shuffleDeck,getCurrentPlayer,transferCard} from './gameOps.js'
 import { gameState } from './gameState.js';
+import { saveGame } from './storage.js';
 
 
 // UI Elements
@@ -66,7 +67,8 @@ export function renderProperties() {
 
 gameState.players.forEach(player =>{//for each player, append their properties
     const properties=document.querySelector(`#${player.name}`);
-    const nextPlayer =gameState.players[(gameState.currentPlayer + 1) % gameState.players.length];    
+    const currentPlayer = getCurrentPlayer();
+    const isOpponent = player !== currentPlayer;
 
     properties.innerHTML = ''; 
 
@@ -83,12 +85,28 @@ gameState.players.forEach(player =>{//for each player, append their properties
 
 
     const cardEl = createCard(card, 'properties');
+    const deckCard = cardEl.querySelector(".deckcard");
+
+    deckCard.addEventListener("click", () => {
+        gameState.selectedCard = card;
+        console.log('You now selected: ' + gameState.selectedCard.name);
+
+        if (gameState.currentAction?.name === "Sly Deal" && isOpponent) {
+            transferCard(player.playerProperties, currentPlayer.playerProperties, card);
+            gameState.currentAction = null;
+            saveGame(gameState);
+            updateGame();      
+            return;  
+        }
+    }); 
+    
+    if (gameState.currentAction?.name === "Sly Deal" && isOpponent) {
+        deckCard.classList.add('clickable');
+        console.log('It is evening time');
+    }
     propertySet.appendChild(cardEl);
 
-        if (gameState.currentAction === "Sly Deal") {
-            cardEl.classList.add('clickable');
-            console.log('It is evening time')
-        }
+
         });
     });
 }
@@ -167,6 +185,17 @@ export function updateGame(){
     renderPile();
     updateBackground();
     updateHeader();
+    updateEndTurnButton();
+}
+
+export function updateEndTurnButton() {
+    const endTurnBtn = document.getElementById('endturn_btn');
+    if (!endTurnBtn) return;
+
+    const player = getCurrentPlayer();
+    const isPlayerTurn = player.name === 'You';
+
+    endTurnBtn.classList.toggle('enabled', isPlayerTurn);
 }
 
 function updateBackground() {

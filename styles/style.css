@@ -74,10 +74,13 @@ header{
 }
 
 #startgame_btn.disabled,
-#endturn_btn.disabled{
+#endturn_btn{
     display: none;
 }
 
+#endturn_btn.enabled{
+    display: block;
+}
 
 /* //onclick it should trasnform and scalle the card and stay there*/
 
@@ -192,6 +195,11 @@ justify-content: end;
 .set .deckcard {
   margin-top: -60px; /* overlap */
   transition: transform 0.3s;
+  pointer-events: none;
+}
+
+.set .deckcard.clickable {
+  pointer-events: all;
 }
                                           /* Header */
 

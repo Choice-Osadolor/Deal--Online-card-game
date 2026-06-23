@@ -1,4 +1,5 @@
 import{gameState} from './gameState.js'
+import { updateGame } from './render.js';
 import {saveGame } from './storage.js';
 
 
@@ -135,6 +136,20 @@ if (hidden) {
         if (card.type) {
             cardEl.classList.add(card.type.toLowerCase());
         }
+
+        // Set card name
+        const cardNameEl = clone.querySelector('.card-name');
+        if (cardNameEl && card.name) {
+            cardNameEl.textContent = card.name;
+        }
+
+        // Set card value
+        const cardValueTop = clone.querySelector('.card-value-top');
+        const cardValueBottom = clone.querySelector('.card-value-bottom');
+        if (card.value !== undefined && card.value !== null) {
+            if (cardValueTop) cardValueTop.textContent = card.value;
+            if (cardValueBottom) cardValueBottom.textContent = card.value;
+        }
     }
 
     return clone;
@@ -201,23 +216,11 @@ export function playCard(player) {
     player.playerBank += card.value;
     } 
     else if (card.category === 'action') {
+        console.log('ACTION CARD IS BEING PLAYEd')
         gameState.currentAction=card;
         console.log('This is the current Action card: '+gameState.currentAction.name)
         discardCard(card,player);
-        switch(card.name) {
-        case "Pass Go":
-            drawCard(player);
-            drawCard(player);
-            break;
-        case "It's My Birthday":
-            nextPlayer.playerBank-=2;
-            player.playerBank+=2;
-            break;
-        case "Debt Collector":
-            nextPlayer.playerBank-=5;
-            player.playerBank+=5;
-            break;
-        }
+        resolveAction(card,player);
         saveGame(gameState);    
     }
 
@@ -254,10 +257,41 @@ export function discardCard(card, player) {
     saveGame(gameState);
 }
 
-export function transfercard(loc1,loc2,cards){
-    cards.forEach((card)=>{
-        loc1=loc1.filter(c=>!cards.include(card));
-        loc2.push(card);
-        saveGame(gameState);
-    })
+export function resolveAction(card,player){
+    switch(card.name) {
+        case "Pass Go":
+            drawCard(player);
+            drawCard(player);
+            break;
+        case "It's My Birthday":
+            nextPlayer.playerBank-=2;
+            player.playerBank+=2;
+            break;
+        case "Debt Collector":
+            nextPlayer.playerBank-=5;
+            player.playerBank+=5;
+            break;
+        case "Forced Deal":
+            transferCard()
+            transferCard();
+            break;
+        case "Sly Deal":
+            transferCard();
+            break;
+        case "Deal Breaker":
+
+        }
+
+        
+}
+
+
+export function transferCard(from, to, card) {
+    const index = from.findIndex(c => c.id === card.id);
+
+    if (index !== -1) {
+        const [movedCard] = from.splice(index, 1);
+        to.push(movedCard);
+    }
+    saveGame(gameState);
 }
