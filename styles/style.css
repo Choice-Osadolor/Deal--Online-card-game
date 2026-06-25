@@ -178,8 +178,8 @@ height: 200px;
     flex-direction: column;
     flex-wrap: none;
     justify-content: space-between;
-    border: black 9px solid;
     height: 80%;
+    align-self: flex-start;
 }
 .properties{
     display: flex;
@@ -194,7 +194,6 @@ justify-content: end;
 
 .set{
     height: 5em;
-    background-color: aqua;
     display: flex;
     justify-content: space-evenly;
     flex-direction: column;
