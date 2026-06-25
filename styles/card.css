@@ -36,7 +36,7 @@
 /* Genegeral Card Styling */
 
 .frontcard{
-    background-image: url('/assets/card/base.png');
+    background-image: url('../assets/card/base.png');
     background-size: cover;
     width: 15em;
     height: 21em;
