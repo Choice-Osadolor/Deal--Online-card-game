@@ -130,7 +130,7 @@ export function createCard(card, loc, hidden = false) {
     const backCard = cardEl.querySelector('.deckcard-back');
 
     // Add location classes
-    if (loc === 'deck') cardEl.classList.add('on-deck');
+    if (loc === 'deck') cardEl.classList.add('on-deck'); 
     if (loc === 'hand') cardEl.classList.add('in-hand');
     if (loc === 'properties') cardEl.classList.add('in-set');
     if (loc === 'discard') cardEl.classList.add('in-set');
