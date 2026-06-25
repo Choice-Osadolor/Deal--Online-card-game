@@ -1,0 +1,38 @@
+<svg width="927" height="328" viewBox="0 0 927 328" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_224_366)">
+
+
+<!-- Border Colorrr :::Stroke, give id, and then target the stroke -->
+<path d="M215.188 82.0293L215.182 81.9385L213.677 61.2881L213.671 61.2002L213.658 61.1133L211.651 47.1865L211.621 46.9785L211.557 46.7783L207.544 34.292L207.509 34.1816L207.463 34.0752L202.948 23.5098L202.894 23.3818L202.825 23.2607L196.304 11.7354L196.263 11.6621L196.217 11.5928L190.436 2.80176C202.57 3.33074 231.517 3.73996 271.302 4.05469C318.863 4.43093 382.13 4.67702 451.28 4.8291C589.479 5.13303 751.193 5.0612 858.043 4.90137L865.158 6.26367L872.016 8.6084L878.865 10.9502L885.075 14.1514L890.297 17.7871L896.917 24.125L899.747 29.0908L899.772 29.1367L899.801 29.1816L902.7 33.8076L905.575 40.6895L907.97 48.9395L908.956 63.084L909.118 65.4111H924.5V325.5H2.5V281.971L6.6748 279.791L6.7959 279.729L6.90918 279.652L11.9141 276.298L17.8984 272.479L18.2246 272.271L18.4717 271.975L22.4854 267.173L22.6279 267.001L22.7383 266.808L25.748 261.524L25.8174 261.403L25.873 261.274L29.3838 253.11L29.4287 253.007L29.4639 252.898L31.9727 245.215L32.0098 245.102L32.0352 244.985L33.54 238.262L33.6006 237.992V215.686L34.8555 216.086L39.3701 217.526L39.5498 217.584L39.7363 217.613L48.7656 219.055L48.9014 219.076L49.04 219.083L69.1045 220.043L69.2676 220.051L69.4297 220.038L98.5234 217.637L98.7812 217.615L99.0293 217.542L134.645 206.977L134.933 206.891L135.192 206.74L158.267 193.293L158.503 193.155L158.704 192.97L172.749 180.004L172.833 179.927L172.908 179.843L188.961 162.074L189.137 161.88L189.268 161.653L201.809 140.043L201.929 139.836L202.007 139.609L211.538 112.236L211.583 112.105L211.614 111.972L215.126 96.6035L215.188 96.3291V82.0293Z" fill="url(#paint0_linear_224_366)" stroke="#FFF47F" stroke-width="5"/>
+<line x1="329.004" y1="37.5" x2="683.004" y2="38.5" stroke="url(#paint1_linear_224_366)" stroke-width="3"/>
+<line x1="338.004" y1="299.5" x2="692.004" y2="300.5" stroke="url(#paint2_linear_224_366)" stroke-width="3"/>
+<rect x="515.574" y="292.707" width="10.8567" height="11.1863" transform="rotate(44.6879 515.574 292.707)" stroke="black"/>
+<rect x="506.574" y="29.7071" width="10.8567" height="11.1863" transform="rotate(44.6879 506.574 29.7071)" stroke="black"/>
+</g>
+<defs>
+
+<linearGradient id="paint0_linear_224_366" x1="386.427" y1="63.013" x2="84.4303" y2="137.735" gradientUnits="userSpaceOnUse">
+
+<!-- Background Color, give ID and then target the stop color for each -->
+<stop offset="0.311829" class='card-header' stop-color="#FFBF00"/>
+<stop offset="0.969026" class='card-header' stop-color="#C29200"/>
+</linearGradient>
+<linearGradient id="paint1_linear_224_366" x1="328.999" y1="39.5" x2="682.999" y2="40.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="#1A1A1A" stop-opacity="0"/>
+<stop offset="0.25" stop-color="#262626"/>
+<stop offset="0.5" stop-color="#2D2D2D" stop-opacity="0"/>
+<stop offset="0.75" stop-color="#333333"/>
+<stop offset="1" stop-color="#666666" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="paint2_linear_224_366" x1="337.999" y1="301.5" x2="691.999" y2="302.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="#1A1A1A" stop-opacity="0"/>
+<stop offset="0.25" stop-color="#262626"/>
+<stop offset="0.5" stop-color="#2D2D2D" stop-opacity="0"/>
+<stop offset="0.75" stop-color="#333333"/>
+<stop offset="1" stop-color="#666666" stop-opacity="0"/>
+</linearGradient>
+<clipPath id="clip0_224_366">
+<rect width="927" height="328" fill="white"/>
+</clipPath>
+</defs>
+</svg>

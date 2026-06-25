@@ -3,101 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="card.css">
     <title>Document</title>
 </head>
-<!-- <body style="background-image: url(assets/loading.png); background-size: cover;">
+
+<body>
+<h1>testing</h1>
+<!-- <img src="./assets/card/base.png" alt=""> -->
+
+<div style="position: relative;" class="card">
+    <p class="value top">3</p>
+    <p class="value bottom">3</p>
+
+    <header>
+        <h3 class="name">Ventor Avenue</h3>
+    </header>
     
-    <a href="game.html" style="font-size: 10vw; color: white; width: 100%; height: 100%; text-align: center;" > Start Game</a>
-
-</body> -->
-
-<body style="transition: background linear 1s;">
-    <script>
-        //         document.body.style.backgroundColor='red';
-
-        // setTimeout(()=>{
-        //             document.body.style.backgroundColor='orange';
-
-        // },2000)
-
-      
-        //         setTimeout(()=>{
-        //             document.body.style.backgroundColor='yellow';
-
-        // },3000)
-
-        //         setTimeout(()=>{
-        //             document.body.style.backgroundColor='green';
-
-        // },4000)
-
-// function callbackhell(color,interval){
-//     setTimeout(()=>{
-//         document.body.style.backgroundColor=color;
-//     },interval)
-// }
-
-// callbackhell('red',1000);
-// callbackhell('orange',2000);
-// callbackhell('yellow',3000);
-// callbackhell('lime',4000);
-// callbackhell('green',5000);
-// callbackhell('blue',6000);
-
-//instead of constntly calling the function we can simulate a promise, When we nest one after the other, the timing becomes relatiev to the parent nest in. so we ont have to keep track of the time interva;s
-
-// function callbackpromises(){
-//     setTimeout(()=>{
-//         document.body.style.backgroundColor='red';
-//     setTimeout(()=>{
-//         document.body.style.backgroundColor='orange';
-//             setTimeout(()=>{
-//         document.body.style.backgroundColor='yellow';
-        
-//     },1000)
-//     },1000)    },1000)
-
-// }
-
-// callbackpromises();
 
 
-function callbackhell(color,interval,doNext){
-    setTimeout(()=>{
-        document.body.style.backgroundColor=color;
-        console.log()
-        doNext && doNext();// do the next function
-    },interval)
-}
+        <img class="sets" src="./assets/card/sets.svg" alt="sets">
+        <div class="rent flex-column">
+            <p class="value">1m</p>
+            <p class="value">3m</p>
+            <p class="value">5m</p>
+        </div>
+</div>
 
-
-callbackhell('red',1000,()=>{
-    callbackhell('orange',1000,()=>{
-      callbackhell('yellow',1000,()=>{
-        callbackhell('lightgreen',1000),()=>{
-            callbackhell('green',1000,);
-        };
-
-      });
-    });
-
-});
-
-
-//There are ysysally tw callbacks we pass into a function, a sucess and a failure callback., or if the request failed,, when we end up passing in a unhc of call backs,nesting gets deepr and deprs, this is caleld 
-//CALLBACK HELL
-searchMoviesAPI('amadues',()=>{//execute this call back whenever it stops looking for movies, then fuffils the promise below
-   savetomyDB(movies,()=>{
-    //if it works, run this code
-   },()=>{
-    //if it doenstc work, run this code
-   }) 
-})
-
-
-//Promises and Async functions resolve the Callback problem
-
-
-    </script>
+<script type="module" src="testing.js"></script>
 </body>
 </html>

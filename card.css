@@ -1,0 +1,74 @@
+
+@import url(https://fonts.googleapis.com/css?family=Piazzolla:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic);
+
+
+.card{
+    background-image: url(./assets/card/base.png);
+    background-size: cover;
+    width: 15em;
+    height: 21em;
+    border: black 1px solid;
+}
+
+.card .value{
+    font-size: 2.3em;
+    padding: 0%;
+    margin: 0%;
+    position: absolute;
+}
+
+.value.top{
+    top: 0%;
+    left: 10%;
+}
+
+.value.bottom{
+    bottom: 0%;
+    right: 10%;
+}
+
+body{
+    font-family: 'Piazzolla';
+}
+
+.flex-column{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.card header{
+    background-image: url('./assets/card/header.svg');
+    background-size: cover;
+    position: absolute;
+    top: 3.5%;
+    width: 90%;
+    right: 6%;
+    height: 20%;
+}
+
+header .name{
+    width: 100%;
+    text-align: center;
+    padding-left: 5%;
+}
+
+.card .sets{
+    position: absolute;
+    width: 30%;
+    height: 65%;
+    left: 10%;
+    bottom: 10%;
+}
+
+.card .rent{
+    position: absolute;
+    height: 80%;
+    right: 30%;
+    bottom: 5%;
+}
+
+.rent .value{
+    position: relative;
+}
+

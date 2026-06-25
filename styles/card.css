@@ -1,3 +1,6 @@
+@import url(https://fonts.googleapis.com/css?family=Piazzolla:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic);
+
+
 /* Default look */
 .deckcard {
   --fill-color: rgb(146, 123, 156); /* fallback */
@@ -27,4 +30,98 @@
 .deckcard.deckcard .cardvalue{
     display: none;
 }
+
+
+
+/* Genegeral Card Styling */
+
+.frontcard{
+    background-image: url('/assets/card/base.png');
+    background-size: cover;
+    width: 15em;
+    height: 21em;
+    font-family: 'Piazzolla';
+    color: black;
+}
+
+.frontcard .value{
+    font-size: 2.3em;
+    padding: 0%;
+    margin: 0%;
+    position: absolute;
+}
+
+.value.top{
+    top: 0%;
+    left: 10%;
+}
+
+.value.bottom{
+    bottom: 0%;
+    right: 10%;
+}
+
+.flex-column{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.header{
+    top: 0%;
+    width: 100%;
+    right: 0%;
+    height: 25%;
+    position: absolute;
+
+}
+
+.header .name{
+    width: 100%;
+    text-align: center;
+    padding-left: 5%;
+    z-index: 5;
+}
+
+.header-main{
+    position: relative;
+    padding: 0%;
+    margin: 0%;
+    width: 95%;
+    height: 100%;
+
+}
+
+.header svg{
+  position: absolute;
+  top: -14%;
+  z-index: -1;
+  right: 0%;
+}
+
+.frontcard .sets{
+    position: absolute;
+    height: 80%;
+    left: 10%;
+    bottom: -5%;
+}
+
+.frontcard svg{
+  width: inherit;
+  height: inherit;
+  padding: 0%;
+}
+
+.frontcard .rent{
+    position: absolute;
+    height: 80%;
+    right: 30%;
+    bottom: 5%;
+}
+
+.rent .value{
+    position: relative;
+}
+
+
 

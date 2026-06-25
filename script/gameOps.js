@@ -2,7 +2,30 @@ import{gameState} from './gameState.js'
 import { updateGame } from './render.js';
 import {saveGame } from './storage.js';
 
+                                    // Card Componenets
+const cardHeaderPath = "./assets/card/header.svg";
 
+const svgText2=await fetch(cardHeaderPath)
+    .then(res => res.text());
+// Parse SVGS
+const parser = new DOMParser();
+const headerTemplate = parser
+    .parseFromString(svgText2, "image/svg+xml")
+    .documentElement;
+
+async function loadSVG(path){
+    const svgText=await fetch(path)
+        .then(res => res.text());
+        return new DOMParser()
+            .parseFromString(svgText, "image/svg+xml")
+            .documentElement;
+}
+
+const setTemplates = {
+    default: await loadSVG("./assets/card/sets.svg"),
+    long: await loadSVG("./assets/card/sets4.svg"),
+    short: await loadSVG("./assets/card/sets2.svg")
+};
 export const playerHand=gameState.playerHand;
 export const playerBank=gameState.playerBank;
 export const playerProperties=gameState.playerProperties;
@@ -41,6 +64,7 @@ function makeIdsUnique(element) {
 }// TEMPORARUY SOLUTION TO SVG PROBLEM< DISRUPTING RENDEIRNG OF ELEMENTS BECAUSE OF DUPLICATE IDS
 
 
+                                        // Functions
 export function getCurrentPlayer(){
     const currentPlayer=gameState.players[gameState.currentPlayer];
     return currentPlayer;
@@ -92,8 +116,11 @@ export function createCard(card, loc, hidden = false) {
     }
 
     const clone = template.content.cloneNode(true);
-    const svg = clone.querySelector('svg');
-    if (svg) makeIdsUnique(svg);
+    const sets =(card.setSize === 4 ? setTemplates.long: setTemplates.default).cloneNode(true);
+    const header = headerTemplate.cloneNode(true);
+    makeIdsUnique(header);
+
+
 
     const cardEl = clone.querySelector('.deckcard');
     cardEl.dataset.id = card.id;
@@ -102,58 +129,39 @@ export function createCard(card, loc, hidden = false) {
     const frontCard = cardEl.querySelector('.deckcard-front');
     const backCard = cardEl.querySelector('.deckcard-back');
 
-if (hidden) {
-    cardEl.classList.add("hidden-card");
-}
-
-    // Select the SVG base image
-    const baseImg = cardEl.querySelector('.base-image');
-    if (!baseImg) {
-        console.warn('base-image not found in template for card:', card.name);
-    }
-
     // Add location classes
     if (loc === 'deck') cardEl.classList.add('on-deck');
     if (loc === 'hand') cardEl.classList.add('in-hand');
     if (loc === 'properties') cardEl.classList.add('in-set');
     if (loc === 'discard') cardEl.classList.add('in-set');
-    // Don't bother styling the hidden face
-    if (!hidden) {
 
+    if (hidden) {
+        cardEl.classList.add("hidden-card");
+    }else{
+        frontCard.querySelectorAll('.value').forEach(v=>{
+                v.textContent=card.value;
+            })
+        frontCard.querySelector('.name').textContent=card.name;
         if (card.color) {
-            if (card.color === 'any' || Array.isArray(card.color)) {
-                if (baseImg) {
-                    baseImg.setAttribute('xlink:href', 'assets/wildcard.png');
-                }
-            } else {
-                if (baseImg) {
-                    baseImg.setAttribute('xlink:href', 'assets/defaultcard.png');
-                }
-                cardEl.classList.add(card.color.toLowerCase());
-            }
-        }
+            // Change the colour
+            sets.querySelectorAll(".mini-header").forEach(head => {
+                head.setAttribute("fill", card.color);
+            });
+            header.querySelectorAll(".card-header").forEach(head => {
+                head.setAttribute("stop-color", card.color);
+            });
 
-        if (card.type) {
-            cardEl.classList.add(card.type.toLowerCase());
-        }
+            frontCard.querySelector('.sets').appendChild(sets)
+            frontCard.querySelector('.header-main').appendChild(header);
 
-        // Set card name
-        const cardNameEl = clone.querySelector('.card-name');
-        if (cardNameEl && card.name) {
-            cardNameEl.textContent = card.name;
-        }
 
-        // Set card value
-        const cardValueTop = clone.querySelector('.card-value-top');
-        const cardValueBottom = clone.querySelector('.card-value-bottom');
-        if (card.value !== undefined && card.value !== null) {
-            if (cardValueTop) cardValueTop.textContent = card.value;
-            if (cardValueBottom) cardValueBottom.textContent = card.value;
         }
     }
 
     return clone;
 }
+
+
 
 export function drawCard(player) {
     if(gameState.deck.length === 0) {

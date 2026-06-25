@@ -20,6 +20,7 @@ main{
     height: 70%;
     width: 100%;
     z-index: 40;
+    align-items: center;
 }
 
 main{
@@ -60,6 +61,7 @@ header{
     padding: 1em;
     background-color: honeydew;
     border: lemonchiffon;
+    z-index: 10;
     
 }
 
@@ -176,6 +178,8 @@ height: 200px;
     flex-direction: column;
     flex-wrap: none;
     justify-content: space-between;
+    border: black 9px solid;
+    height: 80%;
 }
 .properties{
     display: flex;
@@ -184,10 +188,15 @@ flex-wrap: nowrap;
 justify-content: end;
 }
 
+#Computer{
+    transform: rotate(180deg);
+}
+
 .set{
-    height: max-content;
+    height: 5em;
     background-color: aqua;
     display: flex;
+    justify-content: space-evenly;
     flex-direction: column;
     flex-wrap: nowrap;
 }
@@ -234,10 +243,6 @@ header article{
 
 
 
-h1,p{
-    font-family: 'Pixelify Sans', sans-serif;
-    color: white;
-}
 
 h1{
     font-weight: lighter;
