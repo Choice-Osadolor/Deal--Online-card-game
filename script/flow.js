@@ -1,3 +1,4 @@
+import { animateLose, animateWin } from "./animations.js";
 import { playCard,drawCard,getCurrentPlayer,playerProperties} from "./gameOps.js";
 import { gameState } from "./gameState.js";
 import { updateGame ,dealCards} from "./render.js";
@@ -60,11 +61,17 @@ export function computerTurn() {
 }
 
 export function endGame(){
-    alert('This game is over, '+getCurrentPlayer().name+' won');
+    console.log('This game is over, '+getCurrentPlayer().name+' won');
+    
 }
 
 export function hasWon(player){
     if(player.fullSets==3){
+        if(player.name=='You'){
+            animateWin();
+        }else{
+            animateLose();
+        }
         return true;
     }
 }
