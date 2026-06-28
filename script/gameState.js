@@ -99,9 +99,20 @@ export const properties = [
   { name: "Wildcard Any", color: "any", type: "wildcard", setSize: null, value: 0, id: 26 },
   { name: "Wildcard Any", color: "any", type: "wildcard", setSize: null, value: 0, id: 27 },
   { name: "Wildcard Any", color: "any", type: "wildcard", setSize: null, value: 0, id: 28 },
+  { name: "Wildcard Any", color: "any", type: "wildcard", setSize: null, value: 0, id: 29 },  { name: "Wildcard Any", color: "any", type: "wildcard", setSize: null, value: 0, id: 25 },
+  { name: "Wildcard Any", color: "any", type: "wildcard", setSize: null, value: 0, id: 26 },
+  { name: "Wildcard Any", color: "any", type: "wildcard", setSize: null, value: 0, id: 27 },
+  { name: "Wildcard Any", color: "any", type: "wildcard", setSize: null, value: 0, id: 28 },
+  { name: "Wildcard Any", color: "any", type: "wildcard", setSize: null, value: 0, id: 29 },  { name: "Wildcard Any", color: "any", type: "wildcard", setSize: null, value: 0, id: 25 },
+  { name: "Wildcard Any", color: "any", type: "wildcard", setSize: null, value: 0, id: 26 },
+  { name: "Wildcard Any", color: "any", type: "wildcard", setSize: null, value: 0, id: 27 },
+  { name: "Wildcard Any", color: "any", type: "wildcard", setSize: null, value: 0, id: 28 },
   { name: "Wildcard Any", color: "any", type: "wildcard", setSize: null, value: 0, id: 29 },
   { name: "Wildcard Any", color: "any", type: "wildcard", setSize: null, value: 0, id: 30 }
-];
+].map(card => ({
+    ...card,
+    category: "property"
+}));;
 
 export const moneyCards = [
   { value: 1, type: 'money', id: 31 },
@@ -113,31 +124,32 @@ export const moneyCards = [
 ];
 
 export const actionCards = [
-  { name: "Pass Go", category: "action", type: "draw", value: 1, id: 37 },
-  { name: "Pass Go", category: "action", type: "draw", value: 1, id: 370 },
-  { name: "Pass Go", category: "action", type: "draw", value: 1, id: 371 },
-  { name: "Pass Go", category: "action", type: "draw", value: 1, id: 372 },
-  { name: "Debt Collector", category: "action", type: "charge", value: 3, id: 38 },
-  { name: "It's My Birthday", category: "action", type: "chargeAll", value: 2, id: 39 },
-  { name: "It's My Birthday", category: "action", type: "chargeAll", value: 2, id: 390 },
-  { name: "Rent (Wild)", category: "action", type: "rent", value: 3, id: 40 },
-  { name: "Rent Green/Blue", category: "action", type: "rent", value: 1, id: 41 },
-  { name: "Rent Brown/LightBlue", category: "action", type: "rent", value: 1, id: 42 },
-  { name: "Rent Pink/Orange", category: "action", type: "rent", value: 1, id: 43 },
-  { name: "Rent Red/Yellow", category: "action", type: "rent", value: 1, id: 44 },
-  { name: "Rent Railroad/Utility", category: "action", type: "rent", value: 1, id: 45 },
-  { name: "House", category: "action", type: "upgrade", value: 3, id: 46 },
-  { name: "Hotel", category: "action", type: "upgrade", value: 4, id: 47 },
-  { name: "Forced Deal", category: "action", type: "swap", value: 3, id: 48 },
-  { name: "Sly Deal", category: "action", type: "steal", value: 3, id: 49 },
-  { name: "Sly Deal", category: "action", type: "steal", value: 3, id: 49 },
-  { name: "Sly Deal", category: "action", type: "steal", value: 3, id: 49 },
-  { name: "Deal Breaker", category: "action", type: "stealSet", value: 5, id: 50 },
-  { name: "Just Say No", category: "action", type: "block", value: 4, id: 51 },
-  { name: "Just Say No", category: "action", type: "block", value: 4, id: 510 },
-  { name: "Just Say No", category: "action", type: "block", value: 4, id: 511 },
-  { name: "Double The Rent", category: "action", type: "modifier", value: 1, id: 52 },
-  { name: "Double The Rent", category: "action", type: "modifier", value: 1, id: 520 }
+  { name: "Pass Go", category: "action", type: "draw", value: 1, id: 37 , color:'#7841B1'},
+  { name: "Pass Go", category: "action", type: "draw", value: 1, id: 370 , color:'#7841B1'},
+  { name: "Pass Go", category: "action", type: "draw", value: 1, id: 371 , color:'#7841B1'},
+  { name: "Pass Go", category: "action", type: "draw", value: 1, id: 372 , color:'#7841B1'},
+  { name: "Debt Collector", category: "action", type: "charge", value: 3, id: 38 , color:'#7841B1'},
+  { name: "It's My Birthday", category: "action", type: "chargeAll", value: 2, id: 39 , color:'#7841B1'},
+  { name: "It's My Birthday", category: "action", type: "chargeAll", value: 2, id: 390 , color:'#7841B1'},
+  { name: "Rent (Wild)", category: "action", type: "rent", value: 3, id: 40 , color:'#7841B1'},
+  { name: "Rent Green/Blue", category: "action", type: "rent", value: 1, id: 41 , color:'#7841B1'},
+  { name: "Rent Brown/LightBlue", category: "action", type: "rent", value: 1, id: 42 , color:'#7841B1'},
+  { name: "Rent Pink/Orange", category: "action", type: "rent", value: 1, id: 43 , color:'#7841B1'},
+  { name: "Rent Red/Yellow", category: "action", type: "rent", value: 1, id: 44 , color:'#7841B1'},
+  { name: "Rent Railroad/Utility", category: "action", type: "rent", value: 1, id: 45 , color:'#7841B1'},
+  { name: "House", category: "action", type: "upgrade", value: 3, id: 46 , color:'#7841B1'},
+  { name: "House", category: "action", type: "upgrade", value: 3, id: 46 , color:'#7841B1'},
+  { name: "Hotel", category: "action", type: "upgrade", value: 4, id: 47 , color:'#7841B1'},
+  { name: "Forced Deal", category: "action", type: "swap", value: 3, id: 48 , color:'#7841B1'},
+  { name: "Sly Deal", category: "action", type: "steal", value: 3, id: 49 , color:'#7841B1'},
+  { name: "Sly Deal", category: "action", type: "steal", value: 3, id: 49 , color:'#7841B1'},
+  { name: "Sly Deal", category: "action", type: "steal", value: 3, id: 49 , color:'#7841B1'},
+  { name: "Deal Breaker", category: "action", type: "stealSet", value: 5, id: 50 , color:'#7841B1'},
+  { name: "Just Say No", category: "action", type: "block", value: 4, id: 51 , color:'#7841B1'},
+  { name: "Just Say No", category: "action", type: "block", value: 4, id: 510 , color:'#7841B1'},
+  { name: "Just Say No", category: "action", type: "block", value: 4, id: 511 , color:'#7841B1'},
+  { name: "Double The Rent", category: "action", type: "modifier", value: 1, id: 52 , color:'#7841B1'},
+  { name: "Double The Rent", category: "action", type: "modifier", value: 1, id: 520 , color:'#7841B1'}
 ];
 
 ////////////////////////////////////// Game Setup ///////////////////////////////////////////

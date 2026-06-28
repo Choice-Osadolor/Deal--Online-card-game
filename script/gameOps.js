@@ -2,17 +2,17 @@ import{gameState} from './gameState.js'
 import { updateGame } from './render.js';
 import {saveGame } from './storage.js';
 
+export const playerHand=gameState.playerHand;
+export const playerBank=gameState.playerBank;
+export const playerProperties=gameState.playerProperties;
                                     // Card Componenets
+
 const cardHeaderPath = "./assets/card/header.svg";
+const cardMainPath = "./assets/card/main.svg";
 
-const svgText2=await fetch(cardHeaderPath)
-    .then(res => res.text());
-// Parse SVGS
+
+                                    // Parse SVGS
 const parser = new DOMParser();
-const headerTemplate = parser
-    .parseFromString(svgText2, "image/svg+xml")
-    .documentElement;
-
 async function loadSVG(path){
     const svgText=await fetch(path)
         .then(res => res.text());
@@ -20,18 +20,7 @@ async function loadSVG(path){
             .parseFromString(svgText, "image/svg+xml")
             .documentElement;
 }
-
-const setTemplates = {
-    default: await loadSVG("./assets/card/sets.svg"),
-    long: await loadSVG("./assets/card/sets4.svg"),
-    short: await loadSVG("./assets/card/sets2.svg")
-};
-export const playerHand=gameState.playerHand;
-export const playerBank=gameState.playerBank;
-export const playerProperties=gameState.playerProperties;
-
 let cardIdCounter = 0;
-
 function makeIdsUnique(element) {
     const suffix = cardIdCounter++;
     const ids = element.querySelectorAll('[id]');
@@ -61,7 +50,16 @@ function makeIdsUnique(element) {
             }
         });
     });
-}// TEMPORARUY SOLUTION TO SVG PROBLEM< DISRUPTING RENDEIRNG OF ELEMENTS BECAUSE OF DUPLICATE IDS
+}
+
+                                    // Load SVGS
+const setTemplates = {
+    default: await loadSVG("./assets/card/sets.svg"),
+    long: await loadSVG("./assets/card/sets4.svg"),
+    short: await loadSVG("./assets/card/sets2.svg")
+};
+const headerTemplate =await loadSVG(cardHeaderPath);
+const mainTemplate=await loadSVG(cardMainPath);
 
 
                                         // Functions
@@ -116,8 +114,9 @@ export function createCard(card, loc, hidden = false) {
     }
 
     const clone = template.content.cloneNode(true);
-    const sets =(card.setSize === 4 ? setTemplates.long: setTemplates.default).cloneNode(true);
+    const sets =(card.setSize === 4 ? setTemplates.long:card.setSize === 2 ? setTemplates.short: setTemplates.default).cloneNode(true);
     const header = headerTemplate.cloneNode(true);
+    const main = mainTemplate.cloneNode(true);
     makeIdsUnique(header);
 
 
@@ -137,25 +136,64 @@ export function createCard(card, loc, hidden = false) {
 
     if (hidden) {
         cardEl.classList.add("hidden-card");
-    }else{
-        frontCard.querySelectorAll('.value').forEach(v=>{
-                v.textContent=card.value;
-            })
+    }else if(card){
+        frontCard.querySelectorAll('.value').forEach(v=>{v.textContent=card.value;})
         frontCard.querySelector('.name').textContent=card.name;
-        if (card.color) {
-            // Change the colour
-            sets.querySelectorAll(".mini-header").forEach(head => {
-                head.setAttribute("fill", card.color);
-            });
-            header.querySelectorAll(".card-header").forEach(head => {
-                head.setAttribute("stop-color", card.color);
-            });
+            if (card.category=='property') {
+                // Change the colour
+                sets.querySelectorAll(".mini-header").forEach(set => {
+                    set.setAttribute("fill", card.color);
+                });
+                header.querySelectorAll(".card-header").forEach(head => {
+                    head.setAttribute("fill", card.color);
+                });
+            
+                if(card.name=='Wildcard Any'){
+                    frontCard.querySelectorAll('.illustration').forEach(i=>{
+                        i.setAttribute('src','./assets/illustrations/wildcard.png');
+                        
+                    main.querySelectorAll(".main-bg").forEach(bg => {
+                    bg.setAttribute("fill", "#CDA4F8");
+                });
+                    })
+                }
+                frontCard.querySelector('.sets').appendChild(sets)
 
-            frontCard.querySelector('.sets').appendChild(sets)
+            }else if(card.category=='action'){
+                    main.querySelectorAll(".main-bg").forEach(bg => {
+                    bg.setAttribute("fill", "#CDA4F8");
+                });
+                header.querySelectorAll(".card-header").forEach(head => {
+                    head.setAttribute("fill", card.color);
+                });
+                
+                frontCard.querySelectorAll('.illustration').forEach(i=>{
+                    switch (card.name) {
+                        case "House":
+                            i.setAttribute('src',"./assets/illustrations/House.png");
+                            break;
+                        case "Hotel":
+                            i.setAttribute('src',"./assets/illustrations/hotel.png");
+                            break;
+                        case "Just Say No":
+                            i.setAttribute('src',"./assets/illustrations/JustSayNo.png");
+                            break;
+                    
+                        default:
+                            break;
+                    }
+                })    
+
+
+                
+
+            }            
+        
+
+            frontCard.appendChild(main);
             frontCard.querySelector('.header-main').appendChild(header);
 
 
-        }
     }
 
     return clone;

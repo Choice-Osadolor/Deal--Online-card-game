@@ -1,5 +1,3 @@
-@import url(https://fonts.googleapis.com/css?family=Piazzolla:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic);
-
 
 /* Default look */
 .deckcard {
@@ -38,14 +36,17 @@
 .frontcard{
     background-image: url('../assets/card/base.png');
     background-size: cover;
-    width: 15em;
+    object-fit: cover;
+    width: 14em;
     height: 21em;
-    font-family: 'Piazzolla';
+    font-family: 'Fredoka';
     color: black;
+    border-radius: 1em;
+
 }
 
 .frontcard .value{
-    font-size: 2.3em;
+    font-size: 3em;
     padding: 0%;
     margin: 0%;
     position: absolute;
@@ -53,7 +54,7 @@
 
 .value.top{
     top: 0%;
-    left: 10%;
+    left: 5%;
 }
 
 .value.bottom{
@@ -68,11 +69,13 @@
 }
 
 .header{
-    top: 0%;
-    width: 100%;
-    right: 0%;
-    height: 25%;
+
     position: absolute;
+    top: 3%;
+    width: 78%;
+    right: 2%;
+    height: 16%;
+    z-index: 5;
 
 }
 
@@ -123,5 +126,42 @@
     position: relative;
 }
 
+.frontcard .main{
+    width: 100%;
+    height: 100%;
+    position: relative;
+    margin: 0%;
+    padding: 0%;
 
 
+}
+.frontcard .main-bg{
+    position: absolute;
+    width: 90%;
+    top: 0%;
+    left: 5%;
+
+}
+
+.main .illustration{
+    width: 95%;
+    position: absolute;
+    left: 0%;
+    top: 5%;
+    z-index: 10;
+}
+
+.main .bottom{
+    bottom: 8%;
+    width: 90%;
+    left: 5%;
+    position: absolute;
+}
+
+.main p{
+    position: absolute;
+    bottom: 10%;
+    color: black;
+    width: 70%;
+    left: 10%;
+}

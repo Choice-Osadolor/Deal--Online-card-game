@@ -1,5 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Pixelify+Sans:regular,500,600,700);
-
+@import url(https://fonts.googleapis.com/css?family=Fredoka:300,regular);
 /* General */
 body{
     height: 100vh;
@@ -218,6 +217,11 @@ justify-content: end;
 
 .set .deckcard.clickable {
   pointer-events: all;
+  
+  -webkit-box-shadow:0px 0px 71px 6px  rgba(124, 32, 166, 0.74);
+-moz-box-shadow: 0px 0px 71px 6px rgba(131, 36, 176, 0.74);
+box-shadow: 0px 0px 71px 6px rgba(150, 36, 202, 0.74);
+  margin: 0em 1em;
 }
                                           /* Header */
 
