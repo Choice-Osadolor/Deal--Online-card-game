@@ -317,14 +317,9 @@ export function resolveAction(card,player){
             nextPlayer.playerBank-=5;
             player.playerBank+=5;
             break;
-        case "Forced Deal":
-            transferCard()
-            transferCard();
-            break;
         case "Sly Deal":
             transferCard();
             break;
-        case "Deal Breaker":
 
         }
 
