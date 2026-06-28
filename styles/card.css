@@ -10,7 +10,7 @@
 }
 
 /* Property colors */
-.deckcard.brown { --fill-color: rgb(156, 104, 104); }
+.deckcard.brown { --fill-color: rgb(152, 152, 152); }
 .deckcard.lightblue { --fill-color: lightblue; }
 .deckcard.pink { --fill-color: pink; }
 .deckcard.orange { --fill-color: orange; }
@@ -71,10 +71,10 @@
 .header{
 
     position: absolute;
-    top: 3%;
+    top: 0%;
     width: 78%;
-    right: 2%;
-    height: 16%;
+    right: 1%;
+    height: 15%;
     z-index: 5;
 
 }
@@ -84,7 +84,17 @@
     text-align: center;
     padding-left: 5%;
     z-index: 5;
+    color: white;
+    text-wrap: wrap;
+     
 }
+
+#hand .name{
+      font-size: clamp(1.4rem, 1vw, 3rem);   
+  
+}
+
+/* Font size changes depending weither iys a property or action */
 
 .header-main{
     position: relative;
@@ -138,7 +148,7 @@
 .frontcard .main-bg{
     position: absolute;
     width: 90%;
-    top: 0%;
+    top: -2%;
     left: 5%;
 
 }
@@ -147,9 +157,25 @@
     width: 95%;
     position: absolute;
     left: 0%;
-    top: 5%;
+    top: 4%;
     z-index: 10;
 }
+
+.illustration.rent,
+.illustration.money{
+    width: 60%;
+    height: auto;
+    top: 20%;
+    left: 20%;
+}
+
+.illustration.rent{
+    padding: 2%;
+    border: 4px solid;
+border-radius: 100%;
+    
+}
+
 
 .main .bottom{
     bottom: 8%;
@@ -158,10 +184,16 @@
     position: absolute;
 }
 
-.main p{
+.main .description{
     position: absolute;
     bottom: 10%;
     color: black;
     width: 70%;
     left: 10%;
+}
+
+.description.money{
+    font-size: 4em;
+    bottom: 0%;
+    left: 20%;
 }

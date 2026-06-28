@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Fredoka:300,regular);
+@import url(https://fonts.googleapis.com/css?family=Fredoka:100,light);
 /* General */
 body{
     height: 100vh;
@@ -113,6 +113,7 @@ header{
 
                                   /* Deck of Cards */
 #deck{
+    z-index: 50;
     height: 180px;
     width: 100px;
     position: relative;
@@ -256,11 +257,10 @@ header article{
 
 
 
-
-h1{
-    font-weight: lighter;
+                                                            /* Discard Pile */
+#discard{
+        transform: rotate(-20deg);
 }
-
 
 
 /* Screens */

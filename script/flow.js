@@ -1,5 +1,5 @@
 import { animateLose, animateWin } from "./animations.js";
-import { playCard,drawCard,getCurrentPlayer,playerProperties} from "./gameOps.js";
+import { playCard,drawCard,getCurrentPlayer} from "./gameOps.js";
 import { gameState } from "./gameState.js";
 import { updateGame ,dealCards} from "./render.js";
 
@@ -20,13 +20,20 @@ console.log(typeof gameState.cardsPlayed);
 
 
 export function endTurn(){
-    gameState.currentPlayer = (gameState.currentPlayer + 1) % gameState.players.length;
-    updateGame();
-    startTurn();
+    const player = getCurrentPlayer();
+    if (player.playerHand.length > 7) {
+        alert('You have more than 7 cards, discard cards before endin your turn')
+    }else{
+        console.log('ending Turn');
+        gameState.currentPlayer = (gameState.currentPlayer + 1) % gameState.players.length;
+        updateGame();
+        startTurn();    
+    }
+
 }
 
 export function computerTurn() {
-    console.log('Computers turn');
+console.log("Computer turn started");
     const player = getCurrentPlayer();
 
     player.playerHand.forEach((card,i)=>{
@@ -35,8 +42,11 @@ export function computerTurn() {
         );
         if (matchingCards.length > 0 || card.color) {
             gameState.selectedCard = card;
-            playCard(player);
-            updateGame();
+try {
+    playCard(player);
+} catch (err) {
+    console.error("AI failed while playing:", err);
+}            updateGame();
             setTimeout(() => {
                 if(hasWon(player)){
                     endGame();
@@ -44,12 +54,18 @@ export function computerTurn() {
             }, 1000);
         }else if(card.type=='money'){
                 gameState.selectedCard=card;
-                playCard(player);
-                updateGame();
+try {
+    playCard(player);
+} catch (err) {
+    console.error("AI failed while playing:", err);
+}                updateGame();
             }else if(card.type=='action'){
                 gameState.selectedCard=card;
-                playCard(player);
-                updateGame();    
+try {
+    playCard(player);
+} catch (err) {
+    console.error("AI failed while playing:", err);
+}                updateGame();    
             }            
     })
 

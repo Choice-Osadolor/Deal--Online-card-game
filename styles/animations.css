@@ -101,7 +101,7 @@
 /* ================= Active ================= */
 
 .deckcard.active {
-  transform: translateY(-100px);
+  transform: translateY(-200px);
   z-index: 10;
 }
 

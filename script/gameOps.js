@@ -2,13 +2,13 @@ import{gameState} from './gameState.js'
 import { updateGame } from './render.js';
 import {saveGame } from './storage.js';
 
-export const playerHand=gameState.playerHand;
-export const playerBank=gameState.playerBank;
-export const playerProperties=gameState.playerProperties;
+// export const playerHand=gameState.playerHand;
+// export const playerBank=gameState.playerBank;
+// export const playerProperties=gameState.playerProperties;
                                     // Card Componenets
 
-const cardHeaderPath = "./assets/card/header.svg";
 const cardMainPath = "./assets/card/main.svg";
+
 
 
                                     // Parse SVGS
@@ -58,9 +58,17 @@ const setTemplates = {
     long: await loadSVG("./assets/card/sets4.svg"),
     short: await loadSVG("./assets/card/sets2.svg")
 };
-const headerTemplate =await loadSVG(cardHeaderPath);
-const mainTemplate=await loadSVG(cardMainPath);
-
+const headerTemplates = {
+    default: await loadSVG("./assets/card/header.svg"),
+    property: await loadSVG("./assets/card/header-property.svg"),
+    wild: await loadSVG("./assets/card/header-wild.svg")
+};
+const mainTemplates = {
+    default: await loadSVG("./assets/card/main.svg"),
+    // property: await loadSVG("./assets/card/sets4.svg"),
+    wild: await loadSVG("./assets/card/main-wild.svg")
+};
+const rentTemplate=await loadSVG('./assets/card/rent.svg');
 
                                         // Functions
 export function getCurrentPlayer(){
@@ -115,9 +123,14 @@ export function createCard(card, loc, hidden = false) {
 
     const clone = template.content.cloneNode(true);
     const sets =(card.setSize === 4 ? setTemplates.long:card.setSize === 2 ? setTemplates.short: setTemplates.default).cloneNode(true);
-    const header = headerTemplate.cloneNode(true);
-    const main = mainTemplate.cloneNode(true);
+    const header =(card.type === "wildcard" ? headerTemplates.wild: card.category==='property'?headerTemplates.property: headerTemplates.default).cloneNode(true);
+    const main =(card.type === "wildcard" ? mainTemplates.wild:mainTemplates.default).cloneNode(true);
+    const rent = rentTemplate.cloneNode(true);
+
+    let fillcolor='#CDA4F8';
     makeIdsUnique(header);
+    makeIdsUnique(main);
+    makeIdsUnique(rent);
 
 
 
@@ -138,47 +151,78 @@ export function createCard(card, loc, hidden = false) {
         cardEl.classList.add("hidden-card");
     }else if(card){
         frontCard.querySelectorAll('.value').forEach(v=>{v.textContent=card.value;})
-        frontCard.querySelector('.name').textContent=card.name;
-            if (card.category=='property') {
+        if(card.type!='rent'){
+            frontCard.querySelector('.name').textContent=card.name;
+        }
+            if (card.category=='property' && card.type!='wildcard') {
                 // Change the colour
+                fillcolor='transparent';
                 sets.querySelectorAll(".mini-header").forEach(set => {
                     set.setAttribute("fill", card.color);
                 });
                 header.querySelectorAll(".card-header").forEach(head => {
                     head.setAttribute("fill", card.color);
                 });
-            
-                if(card.name=='Wildcard Any'){
-                    frontCard.querySelectorAll('.illustration').forEach(i=>{
-                        i.setAttribute('src','./assets/illustrations/wildcard.png');
-                        
-                    main.querySelectorAll(".main-bg").forEach(bg => {
-                    bg.setAttribute("fill", "#CDA4F8");
-                });
-                    })
-                }
+        
                 frontCard.querySelector('.sets').appendChild(sets)
 
             }else if(card.category=='action'){
-                    main.querySelectorAll(".main-bg").forEach(bg => {
-                    bg.setAttribute("fill", "#CDA4F8");
-                });
+
+                if(card.type=='rent'){
+                    fillcolor='transparent';
+                    rent.classList.add('illustration', 'rent');
+                    card.description='Charge All Players, Rent of either Color';
+                    card.color='transparent';
+                    rent.querySelectorAll('.color1').forEach(c=>{
+                        c.setAttribute('stop-color', card.color1 || '#FFEA00');
+                    })
+                    rent.querySelectorAll('.color2').forEach(c=>{
+                        c.setAttribute('stop-color', card.color2 || '#FF0000');
+                    })
+
+                    const mainLayer = frontCard.querySelector('.main');
+                    const rentPlaceholder = mainLayer.querySelector('.rent');
+                    if (rentPlaceholder) {
+                        rentPlaceholder.style.display = 'none';
+                    }
+
+                    mainLayer.appendChild(rent);
+
+                }
+
+                frontCard.querySelectorAll('.bottom').forEach(b=>{
+                    b.setAttribute('src','./assets/card/content-short.svg')
+                })
+                frontCard.querySelectorAll('.description').forEach(d=>{
+                    d.textContent=card.description;
+                })
+
                 header.querySelectorAll(".card-header").forEach(head => {
                     head.setAttribute("fill", card.color);
                 });
                 
                 frontCard.querySelectorAll('.illustration').forEach(i=>{
+
                     switch (card.name) {
                         case "House":
+                            card.description='Place this on a complete set';
                             i.setAttribute('src',"./assets/illustrations/House.png");
                             break;
                         case "Hotel":
+                            card.description='Place this unto a complete set with a house';
                             i.setAttribute('src',"./assets/illustrations/hotel.png");
                             break;
                         case "Just Say No":
+                            card.description='Say no to card dealt by opponent'
                             i.setAttribute('src',"./assets/illustrations/JustSayNo.png");
                             break;
-                    
+                        case "Double The Rent":
+                            card.description='Needs to be played with a rent card'
+                            i.setAttribute('src',"./assets/illustrations/double.png");
+                            break; 
+                        case "Sly Deal":
+                            card.description='Steal a property(Cannot be part of a full set)';
+                            i.setAttribute('src',"./assets/illustrations/steal.png");                
                         default:
                             break;
                     }
@@ -187,11 +231,51 @@ export function createCard(card, loc, hidden = false) {
 
                 
 
-            }            
-        
+            }else if(card.type==='wildcard'){
+                fillcolor='#CDA4F8';
+                frontCard.querySelectorAll('.bottom').forEach(b=>{
+                    b.setAttribute('src','./assets/card/content-short.svg')
+                })
+                frontCard.querySelectorAll('.description').forEach(d=>{
+                    d.textContent='This card can be used as any part of any set';
+                })
+                frontCard.querySelectorAll('.illustration').forEach(i=>{
+                    i.setAttribute('src','./assets/illustrations/wildcard.png');
+                        
+                })
+            }else if(card.type=='money'){
+                fillcolor='#CAEBB8';
+                frontCard.querySelectorAll('.illustration').forEach(i=>{
+                    i.classList.add('money')
+                    i.setAttribute('src',"./assets/illustrations/cash.png");
+                    frontCard.querySelectorAll('.description').forEach(d=>{
+                        d.textContent=`${card.value}m`;
+                        d.classList.add('money')
+                    })
+                })
 
+            }
+        if (card.type === 'rent') {
+            main.querySelectorAll('.color1').forEach(c=>{
+                c.setAttribute('stop-color', card.color1 || '#FFEA00');
+            })
+            main.querySelectorAll('.color2').forEach(c=>{
+                c.setAttribute('stop-color', card.color2 || '#FF0000');
+            })
+            main.querySelectorAll('.main-bg').forEach(bg => {
+                bg.setAttribute('fill', 'transparent');
+            });
+        } else {
+            main.querySelectorAll('.main-bg').forEach(bg => {
+                bg.setAttribute('fill', fillcolor);
+            });
+        }
+        
             frontCard.appendChild(main);
-            frontCard.querySelector('.header-main').appendChild(header);
+            if(card.type!='rent'){
+                            frontCard.querySelector('.header-main').appendChild(header);
+
+            }
 
 
     }
@@ -202,22 +286,12 @@ export function createCard(card, loc, hidden = false) {
 
 
 export function drawCard(player) {
+    
     if(gameState.deck.length === 0) {
         console.log("Deck is empty!");
         return null;
     }
 
-        player.playerHand.forEach((card,index) =>{
-        // console.log('Creating card element for:', card.name);
-        const cardEl=createCard(card,'hand');
-
-        if (cardEl) {
-            setTimeout(()=>{
-                handContainer.appendChild(cardEl);
-                
-            },500*index);
-        }
-    });
 const drawnCard=gameState.deck.pop();
 player.playerHand.push(drawnCard);
 
@@ -234,10 +308,10 @@ export function playCard(player) {
     console.log('opponent is:' + nextPlayer.name);
     gameState.cardsPlayed++;
 
-    if (gameState.cardsPlayed >= 4) {
-        endTurn();
-        return;
-    }
+    // if (gameState.cardsPlayed >= 4) {
+    //     endTurn();
+    //     return;
+    // }
     console.log(gameState.cardsPlayed);
 
     if (!card) {
@@ -304,6 +378,8 @@ export function discardCard(card, player) {
 }
 
 export function resolveAction(card,player){
+    const nextPlayer =gameState.players[(gameState.currentPlayer + 1) % gameState.players.length];    
+
     switch(card.name) {
         case "Pass Go":
             drawCard(player);
