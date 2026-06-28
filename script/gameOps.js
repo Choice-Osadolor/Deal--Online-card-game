@@ -389,6 +389,10 @@ export function resolveAction(card,player){
             nextPlayer.playerBank-=2;
             player.playerBank+=2;
             break;
+        case "Rent":
+            nextPlayer.playerBank-=card.value;
+            player.playerBank+=card.value;
+            break;
         case "Debt Collector":
             nextPlayer.playerBank-=5;
             player.playerBank+=5;
@@ -396,7 +400,6 @@ export function resolveAction(card,player){
         case "Sly Deal":
             transferCard();
             break;
-
         }
 
         
