@@ -266,7 +266,7 @@ header article{
 
 /* WIn Lose Screen */
 .overlay{
-    background-image: url('/assets/screens/image.png');
+    background-image: url('../assets/screens/image.png');
     background-size: 100%;
     background-position: top;
     border: black solid 4px;
@@ -344,11 +344,11 @@ header article{
 }
 
 #play-btn{
-    background-image: url('/assets/components/play-btn.png');
+    background-image: url('../assets/components/play-btn.png');
 }
 
 #home-btn{
-    background-image: url('/assets/components/home-btn.png');
+    background-image: url('../assets/components/home-btn.png');
 }
 
 
@@ -356,7 +356,7 @@ header article{
 
 /* Home Screen */
 #home-bg{
-    background-image: url('/assets/screens/load.png');
+    background-image: url('../assets/screens/load.png');
     background-position: center;
     background-size: cover;
     width: 100%;
@@ -364,7 +364,7 @@ header article{
 }
 
 #home-bg button{
-    background-image: url('/assets/components/startbg.png');
+    background-image: url('../assets/components/startbg.png');
     height: 10em;
     width: 35em;
 }
