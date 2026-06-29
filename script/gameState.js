@@ -220,6 +220,9 @@ export const gameState = {
     isGameOver:false,
     winner:null,
 
+  // Targetcard
+  // TargetSet
+  // target Player
     // fullSet:false,
     // fullHand:false,
     // fullBank:false

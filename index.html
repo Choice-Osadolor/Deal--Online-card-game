@@ -4,120 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="styles/animations.css">
-    <link rel="stylesheet" href="styles/card.css">
+    <link rel="stylesheet" href="./styles/style.css">
 </head>
-<body>
+<body id="home-bg">
 
-<header>
+<a href="./game.html">
+    <button id="startgame_btn">Start Game</button>
 
-<button id="pause">
-   <svg width="50" height="50" viewBox="0 0 165 159" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M0.0474176 9.97415C0.0493301 4.48329 5.2744 0.0433863 11.7332 0.0414877L58.4626 0.0277511C64.9214 0.0258524 70.1434 4.46268 70.1415 9.95354L70.0931 148.963C70.0912 154.454 64.8661 158.893 58.4073 158.895L11.6779 158.909C10.1381 158.906 8.61443 158.646 7.19396 158.145C5.77349 157.644 4.48407 156.912 3.39943 155.99C2.31479 155.069 1.45619 153.975 0.872725 152.773C0.289256 151.571 -0.00764297 150.283 -0.000999512 148.983L0.0474176 9.97415ZM94.165 9.94648C94.1669 4.45562 99.392 0.0157194 105.851 0.0138208L152.58 8.41673e-05C159.039 -0.00181447 164.261 4.43501 164.259 9.92587L164.211 148.935C164.209 154.426 158.984 158.866 152.525 158.868L105.795 158.881C104.256 158.878 102.732 158.618 101.312 158.118C99.8911 157.617 98.6017 156.885 97.517 155.963C96.4324 155.041 95.5738 153.948 94.9903 152.745C94.4068 151.543 94.1099 150.255 94.1166 148.956L94.165 9.94648Z" fill="white"/>
-</svg>
-
-</button>
-
-<article>
-      <h1>Your Turn</h1>
-   <p id="bank"></p>
-</article>
-
-
-</header>
-
-<main>
- 
-   <!-- Deck of Cards -->
- <div id="deck">
-
- </div>
- 
-<!-- Action Cards -->
-<section id="discard" style="width: 20%; height: 40%;">
-
-</section>
-<!-- <section class="bank"></section> -->
-
-<section id="players_properties">
-  <div class="properties" id="Computer">
-           <!-- <div class="set"></div>  -->
-  </div>
-  
-  <div class="properties" id="You"> 
-       <!-- <div class="set"></div> -->
-  </div>
-
-
-</section>
-
-<section id="ComputerHand" style="width: 70%; height: 15em;"></section>
-<section id="hand"></section>
-
-<div id="controls">  
-  <button id="endturn_btn" class="disabled">end Turn</button>
-
-  <button id="playcard_btn" class="disabled">play card</button>
-  <button id="startgame_btn">Start Game</button>
-  <button id="bankcard_btn" class="disabled">Bank Card</button>
-  <button id="discard_btn" class="disabled">Discard Card</button>
-  <button id="discard_btn" class="disabled">Discard Card</button>
-  
-</div>
-
-
-</main>
-
-                                    <!-- Displays and Popups -->
-
- <section class="overlay">
-    <img class="screen" src="assets/screens/win.png" alt="">
- </section>
-
-<!--------------------------------------- Templates ---------------------------->
-
-
-<template id="cardtemplate" >
-
-    <div class="deckcard card">
-         <div class="deckcard-inner">
-            <img src="assets/backcard.png" alt="card" class="backcard deckcard-back">
-            <div style="position: relative;" class="frontcard deckcard-front">
-              <p class="value top">3</p>
-              <p class="value bottom">3</p>
-
-              <div class="header">
-
-                <div class="header-main">
-                  <h3 class="name">Ventor Avenue</h3>
-
-                </div>
-              </div>
-
-              <div class="main">
-                  <div class="sets">
-
-                  </div>
-                
-                  <div class="rent flex-column">
-                        <p class="value">1m</p>
-                        <p class="value">3m</p>
-                        <p class="value">5m</p>
-                  </div>
-
-                <!-- Action, Temp -->
-                  <img src="" alt="" class="illustration">
-                  <img style="z-index: 30;" src="" alt="" class="bottom">
-                  <p class="description" style="z-index: 30;"></p>
-              </div>
-
-            </div>
-        </div>
-    </div>
-
-</template>
-
+</a>
 
 <script type="module" src="script/script.js"></script>
 </body>

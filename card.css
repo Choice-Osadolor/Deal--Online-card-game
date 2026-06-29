@@ -118,3 +118,92 @@ header .name{
     width: 70%;
     left: 10%;
 }
+
+
+
+
+/* Screens */
+
+.overlay{
+    background-image: url('/assets/screens/image.png');
+    background-size: 100%;
+    background-position: top;
+    border: black solid 4px;
+
+    overflow: hidden;
+    justify-content: space-around;
+    transition: background-size 0.4s ease-in-out;
+    width: 100%;
+    height: 100vh;
+    padding: 0%;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    z-index: 20;
+}
+
+
+.overlay .screen,
+.overlay #overview{
+    position: absolute;
+}
+
+.screen{
+    width: 100%;
+    height: auto;
+    left: -10%;
+    top: -15%;
+
+}
+
+#overview{
+    left: 3%;
+    top: 7%;
+
+    display: flex;
+    flex-direction: column;
+    row-gap: 0.2em;
+    align-items: center;
+    transform: translateY(40em);
+    width: 36%;
+    height: 85%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(/assets/components/overview-bg.png);
+}
+
+.overlay:hover{
+    background-size: 180%;
+
+}
+
+.overlay:hover #overview{
+    transition: 0.5s;
+    transform: none;
+}
+
+.overlay:hover .screen{
+    left: 0%;
+    top: 0%;
+    transition: 1s;
+    opacity: 0;
+}
+
+#overview button{
+     border: none;
+    background-color: transparent;
+    background-position: center;
+    background-size: cover;
+    cursor: pointer;
+    width: 20em;
+    height: 5em;
+    transition: 0.3s ease-in-out;
+}
+
+#play-btn{
+    background-image: url('/assets/components/play-btn.png');
+}
+
+#home-btn{
+    background-image: url('/assets/components/home-btn.png');
+}
