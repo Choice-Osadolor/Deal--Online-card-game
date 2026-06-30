@@ -130,8 +130,10 @@ for (let i = 0; i < amount; i++) {
     if(animated==true && player.name=='You'){
         await animatedraw()
             .then(()=>{
+                drawCard(player);
+                renderDeck();
+
                 setTimeout(() => {
-                    drawCard(player);
                     renderHand();
 
                 }, 300 * i);
@@ -140,10 +142,8 @@ for (let i = 0; i < amount; i++) {
         setTimeout(() => {
             drawCard(player);
             renderHand();
-
         }, 300 * i);
     }
-
 }
 
 }
