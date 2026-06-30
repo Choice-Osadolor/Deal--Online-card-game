@@ -168,6 +168,20 @@ export const actionCards = [
   { name: "Forced Deal", category: "action", type: "swap", value: 3, id: 481 , color:'#7841B1'},
   { name: "Forced Deal", category: "action", type: "swap", value: 3, id: 482 , color:'#7841B1'},
   { name: "Sly Deal", category: "action", type: "steal", value: 3, id: 49 , color:'#7841B1'},
+  { name: "Sly Deal", category: "action", type: "steal", value: 3, id: 49 , color:'#7841B1'},
+  { name: "Sly Deal", category: "action", type: "steal", value: 3, id: 49 , color:'#7841B1'},
+  { name: "Sly Deal", category: "action", type: "steal", value: 3, id: 49 , color:'#7841B1'},
+  { name: "Sly Deal", category: "action", type: "steal", value: 3, id: 49 , color:'#7841B1'},
+  { name: "Sly Deal", category: "action", type: "steal", value: 3, id: 49 , color:'#7841B1'},
+  { name: "Sly Deal", category: "action", type: "steal", value: 3, id: 49 , color:'#7841B1'},
+  { name: "Sly Deal", category: "action", type: "steal", value: 3, id: 49 , color:'#7841B1'},
+  { name: "Sly Deal", category: "action", type: "steal", value: 3, id: 49 , color:'#7841B1'},
+  { name: "Sly Deal", category: "action", type: "steal", value: 3, id: 49 , color:'#7841B1'},
+  { name: "Sly Deal", category: "action", type: "steal", value: 3, id: 49 , color:'#7841B1'},
+  { name: "Sly Deal", category: "action", type: "steal", value: 3, id: 49 , color:'#7841B1'},
+  { name: "Sly Deal", category: "action", type: "steal", value: 3, id: 49 , color:'#7841B1'},
+  { name: "Sly Deal", category: "action", type: "steal", value: 3, id: 49 , color:'#7841B1'},
+  { name: "Sly Deal", category: "action", type: "steal", value: 3, id: 49 , color:'#7841B1'},
   { name: "Sly Deal", category: "action", type: "steal", value: 3, id: 490 , color:'#7841B1'},
   { name: "Sly Deal", category: "action", type: "steal", value: 3, id: 491 , color:'#7841B1'},
   { name: "Deal Breaker", category: "action", type: "stealSet", value: 5, id: 50 , color:'#7841B1'},
@@ -213,6 +227,7 @@ export const gameState = {
     currentPlayer:0,//index of curent player
     cardsPlayed:0,
     selectedCard:null,
+    targetedCard:null,
     discardPile:[],
     currentAction:null,
     // pendingAction/currentAction
@@ -220,7 +235,6 @@ export const gameState = {
     isGameOver:false,
     winner:null,
 
-  // Targetcard
   // TargetSet
   // target Player
     // fullSet:false,

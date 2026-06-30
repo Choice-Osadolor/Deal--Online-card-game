@@ -1,5 +1,5 @@
 import { animatedraw, animateLose, animateWin } from "./animations.js";
-import { playCard,drawCard,getCurrentPlayer} from "./gameOps.js";
+import { playCard,drawCard,getCurrentPlayer, discardCard} from "./gameOps.js";
 import { gameState } from "./gameState.js";
 import { updateGame ,dealCards} from "./render.js";
 
@@ -7,6 +7,9 @@ export async function startTurn(){
     const player=getCurrentPlayer();
     gameState.cardsPlayed=0;
     //Set Current Player=player
+    if(player.playerHand.length==0){
+        dealCards(player, 5);
+    }
     dealCards(player, 2, true);
 
     if (player.name == 'Computer') {
@@ -22,7 +25,9 @@ console.log(typeof gameState.cardsPlayed);
 
 export function endTurn(){
     const player = getCurrentPlayer();
-    if (player.playerHand.length > 7) {
+
+
+    if (player.playerHand.length > 7 && player.name=='You') {
         alert('You have more than 7 cards, discard cards before endin your turn')
     }else{
         console.log('ending Turn');
@@ -41,7 +46,8 @@ console.log("Computer turn started");
         const matchingCards = player.playerProperties.filter(
             p => p.color === card.color
         );
-        if (matchingCards.length > 0 || card.color) {
+
+        if (matchingCards.length > 0 || card.category=='property') {
             gameState.selectedCard = card;
 try {
     playCard(player);
@@ -67,9 +73,14 @@ try {
 } catch (err) {
     console.error("AI failed while playing:", err);
 }                updateGame();    
-            }            
+            }     
+           
     })
 
+
+
+    // if the difference is greater than 0, discard card
+// Eveyrtime a card is discarded, difference --
     setTimeout(() => {
         endTurn()
     }, 2000);

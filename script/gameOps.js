@@ -92,6 +92,13 @@ export function getCardOptions(card,player){
     if (player.playerHand.length > 7) {
         options.push("discard");
     }
+// If card is property and is in player properteis
+    // const inHand = player.playerHand.filter(
+    //         p=> p.color === card.color
+    //     );
+    // if(card.category=='property' && !inHand){
+    //     options.push("steal");
+    // }
     return options;
 }
 
@@ -303,21 +310,35 @@ return drawnCard;
 
 
 export function playCard(player) {
-    let card = gameState.selectedCard;
-    const nextPlayer =gameState.players[(gameState.currentPlayer + 1) % gameState.players.length];    
+const currentPlayer = getCurrentPlayer();
+const nextPlayer =gameState.players[(gameState.currentPlayer + 1) % gameState.players.length];    
     console.log('opponent is:' + nextPlayer.name);
-    gameState.cardsPlayed++;
 
-    // if (gameState.cardsPlayed >= 4) {
-    //     endTurn();
-    //     return;
-    // }
-    console.log(gameState.cardsPlayed);
-
-    if (!card) {
-        console.log('Please select a card first');
+    if(gameState.currentAction){
+    // If an action is in progress, depending on what action type it is, finish action
+         switch (gameState.currentAction.type) {
+            case "steal":
+                transferCard(nextPlayer.playerProperties, player.playerProperties, gameState.targetedCard);
+                gameState.currentAction = null;
+                gameState.targetedCard=null;
+            case "swap":
+                transferCard(nextPlayer.playerProperties, player.playerProperties, gameState.targetedCard);
+                transferCard(player.playerProperties,nextPlayer.playerProperties, gameState.selectedCard);
+                gameState.currentAction = null;
+                gameState.targetedCard=null;
+            }
+        saveGame(gameState);
+        updateGame();
         return;
     }
+
+    const card = gameState.selectedCard;
+    if (!card) {
+        console.log("Please select a card first");
+        return;
+    }
+    gameState.cardsPlayed++;
+    console.log(gameState.cardsPlayed);
 
     if (card.color && card.setSize != null) {
         const matchingCards = player.playerProperties.filter(
@@ -336,21 +357,26 @@ export function playCard(player) {
     player.playerBank += card.value;
     } 
     else if (card.category === 'action') {
-        console.log('ACTION CARD IS BEING PLAYEd')
-        gameState.currentAction=card;
-        console.log('This is the current Action card: '+gameState.currentAction.name)
-        discardCard(card,player);
-        resolveAction(card,player);
-        saveGame(gameState);    
+        // Otherwise we're starting the action
+        discardCard(card, player);
+        gameState.currentAction = card;
+        gameState.selectedCard = null;
+        saveGame(gameState);
+        resolveAction(card, player);
+
+        updateGame();
+        return;
     }
 
-    console.log(player.name+' has played: ' + card.name);
 
+console.log(player.name + ' has played: ' + card.name);
     // Remove from hand & reset selection
-    player.playerHand = player.playerHand.filter(c => c.id !== card.id);
-    gameState.selectedCard = null;
 
-    saveGame(gameState);
+player.playerHand = player.playerHand.filter(c => c.id !== card.id);
+gameState.selectedCard = null;
+
+saveGame(gameState);
+updateGame();
 }
 
 export function bankCard(card, player) {
@@ -358,7 +384,7 @@ export function bankCard(card, player) {
         console.error('No card selected for banking.');
         return;
     }
-
+    gameState.cardsPlayed++;
     player.playerBank += card.value;
     player.playerHand = player.playerHand.filter(c => c.id !== card.id);
     gameState.selectedCard = null;
@@ -371,6 +397,7 @@ export function discardCard(card, player) {
         return;
     }
 
+    gameState.cardsPlayed++;
     player.playerHand = player.playerHand.filter(c => c.id !== card.id);
     gameState.discardPile.push(card);
     gameState.selectedCard = null;
@@ -379,26 +406,29 @@ export function discardCard(card, player) {
 
 export function resolveAction(card,player){
     const nextPlayer =gameState.players[(gameState.currentPlayer + 1) % gameState.players.length];    
+const currentPlayer = getCurrentPlayer();
+const isOpponent = player !== currentPlayer;
 
     switch(card.name) {
         case "Pass Go":
             drawCard(player);
             drawCard(player);
+            gameState.currentAction=null;
             break;
         case "It's My Birthday":
             nextPlayer.playerBank-=2;
             player.playerBank+=2;
+            gameState.currentAction=null;
             break;
         case "Rent":
             nextPlayer.playerBank-=card.value;
             player.playerBank+=card.value;
+            gameState.currentAction=null;
             break;
         case "Debt Collector":
             nextPlayer.playerBank-=5;
             player.playerBank+=5;
-            break;
-        case "Sly Deal":
-            transferCard();
+            gameState.currentAction=null;
             break;
         }
 

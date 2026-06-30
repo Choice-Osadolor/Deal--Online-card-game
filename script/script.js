@@ -50,6 +50,9 @@ start.addEventListener('click', () => {
     document.querySelector('#hand').addEventListener('click', (e) => {
         const cardEl = e.target.closest('.deckcard');
         if (!cardEl) return;
+//     if (gameState.currentAction) {
+//     return;
+// }
 
         const cardId = Number(cardEl.dataset.id);
         const player = getCurrentPlayer();
@@ -67,6 +70,8 @@ start.addEventListener('click', () => {
         cardEl.classList.add('active');
     });
 });
+
+
 
 const bankBtn = document.querySelector("#bankcard_btn");
 bankBtn.addEventListener('click', () => {

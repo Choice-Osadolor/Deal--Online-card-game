@@ -1,5 +1,5 @@
 import { animatedraw } from './animations.js';
-import {createCard,drawCard,shuffleDeck,getCurrentPlayer,transferCard} from './gameOps.js'
+import {createCard,drawCard,shuffleDeck,getCurrentPlayer,transferCard, discardCard} from './gameOps.js'
 import { gameState } from './gameState.js';
 import { saveGame } from './storage.js';
 
@@ -62,39 +62,39 @@ gameState.players.forEach(player =>{//for each player, append their properties
     properties.innerHTML = ''; 
 
     player.playerProperties.forEach(card =>{
-        // Find existing set for this color
         let propertySet = properties.querySelector(`.set[data-id="${card.color}"]`);
-
         if (!propertySet) { // No set exists yet. create one
             propertySet = document.createElement('div');
             propertySet.classList.add('set');
             propertySet.dataset.id = card.color;
             properties.appendChild(propertySet);
         }
-
-
+    
     const cardEl = createCard(card, 'properties');
     const deckCard = cardEl.querySelector(".deckcard");
-
-    deckCard.addEventListener("click", () => {
-        gameState.selectedCard = card;
-        console.log('You now selected: ' + gameState.selectedCard.name);
-
-        if (gameState.currentAction?.name === "Sly Deal" && isOpponent) {
-            transferCard(player.playerProperties, currentPlayer.playerProperties, card);
-            gameState.currentAction = null;
-            saveGame(gameState);
-            updateGame();      
-            return;  
-        }
-    }); 
-    
     if (gameState.currentAction?.name === "Sly Deal" && isOpponent) {
-        deckCard.classList.add('clickable');
-        console.log('It is evening time');
+        deckCard.classList.toggle("clickable");
     }
-    propertySet.appendChild(cardEl);
+    if (gameState.currentAction?.name === "Forced Deal") {
+        deckCard.classList.add("clickable");
+    }
 
+deckCard.addEventListener("click", () => {
+    deckCard.classList.add("clicked");
+    gameState.selectedCard=card;
+    // We're choosing a property to steal
+    // if (gameState.currentAction?.type === "steal" && isOpponent) {
+        gameState.targetedCard = gameState.selectedCard;
+        console.log("Target selected:", gameState.targetedCard.name);
+    //     return;
+    // }
+    // Ignore clicks on properties while an action is active
+    if (gameState.currentAction) return;
+
+    // Normal property selection (if you need it later)
+});
+    
+propertySet.appendChild(cardEl);
 
         });
     });
@@ -152,9 +152,15 @@ export function renderButtons(options) {
     const bankBtn = document.querySelector("#bankcard_btn");
     const playBtn = document.querySelector("#playcard_btn");
     const discardBtn = document.querySelector("#discard_btn");
-    // const property=nextplayer.playerProperties;
 
     playBtn.classList.toggle("enabled", options.includes("play"));
+    // if(gameState.currentAction){
+    //     if(gameState.currentAction)
+    //     playBtn.textContent='Action';
+    // }else{
+    //         playBtn.textContent='Play Card';
+
+    // }
     bankBtn.classList.toggle("enabled", options.includes("bank"));
     discardBtn.classList.toggle("enabled", options.includes("discard"));
 
