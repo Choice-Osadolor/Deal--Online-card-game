@@ -1,7 +1,7 @@
 /* ================= Base Card ================= */
 
 #deck .deckcard {
-  width: 130px;
+  width: 120px;
   height: 180px;
   perspective: 1000px;
 }
@@ -36,9 +36,6 @@
 
 /* ================= Flip ================= */
 
-.deckcard.flip .deckcard-inner {
-  transform: rotateY(180deg);
-}
 
 /* ================= Deck ================= */
 
@@ -88,7 +85,8 @@
 
 
 .properties .deckcard {
-  width: 85px;
+  width: 20%;
+  min-width: 85px;
   height: 120px;
   perspective: 1000px;
 }
@@ -113,3 +111,28 @@
 }
 
 
+                          /* Animation- KeyFrames */
+
+@keyframes myAnimation {
+
+  25% {
+  transform: translateX(300px) scale(1.5) rotateY(180deg);
+  }
+  50% {
+  transform: translateX(300px) scale(1.5) rotateY(180deg);
+  }
+  80% {
+  transform: translateX(300px) scale(1.5) rotateY(180deg);
+  }
+  100% {
+  transform: translateX(300px) scale(1.5) rotateY(180deg);
+  }
+}
+
+
+/* Apply Anims */
+
+.deckcard.drawn .deckcard-inner {
+  animation: myAnimation 1.5s 0.3s ease-in-out;
+
+}

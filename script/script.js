@@ -1,9 +1,13 @@
 import { gameInit, updateGame,dealCards,renderButtons} from './render.js';
 import { playCard,getCurrentPlayer,getCardOptions,bankCard,discardCard} from './gameOps.js';
 import { gameState } from './gameState.js';
+import { animatedraw } from './animations.js';
 import { startTurn, endTurn,hasWon,endGame} from './flow.js';
 
 
+document.querySelector('#anim').addEventListener('click',()=>{
+animatedraw();
+})
 console.log(gameState.deck.length);
 
 const start=document.getElementById('startgame_btn');
@@ -15,7 +19,7 @@ start.addEventListener('click', () => {
     updateGame();
 
     setTimeout(() => {
-        startTurn();
+       startTurn();
     }, 2000); // or however long the dealing animation lasts    
     dealCards()
     document.querySelector('#playcard_btn').addEventListener('click', () => {

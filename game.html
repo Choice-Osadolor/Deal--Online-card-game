@@ -20,6 +20,8 @@
 </button>
 
 <article>
+<button id="anim">animation test</button>
+
       <h1>Your Turn</h1>
    <p id="bank"></p>
 </article>
@@ -56,16 +58,16 @@
 <section id="hand"></section>
 
 <div id="controls">  
-  <button id="endturn_btn" class="disabled">end Turn</button>
-    <button id="startgame_btn">Start Game</button>
-
-  <button id="playcard_btn" class="disabled">play card</button>
   <button id="bankcard_btn" class="disabled">Bank Card</button>
-  <button id="discard_btn" class="disabled">Discard Card</button>
+  <button id="playcard_btn" class="disabled">play card</button>
   <button id="discard_btn" class="disabled">Discard Card</button>
   
 </div>
 
+<div style="position: absolute; right: 5%; bottom: 20%;">
+    <button id="endturn_btn" class="disabled"></button>
+    <button id="startgame_btn"></button>
+</div>
 
 </main>
 
@@ -86,12 +88,13 @@
         </div>
   </div>
   
-   <!-- <section class="overlay">
+ <section class="overlay">
+  <!-- background is the board -->
 
   <div style="position: relative; width: 100%; height: 100%;">
         <img class="screen" src="assets/screens/lose.png" alt="">
         <div id="overview">
-            <h1 style="font-size: 3em;">Overview</h1>
+            <h1 style="font-size: 3em;"><b>Overview</b></h1>
             <p>You won</p>
             <p>Turns taken:</p>
 
@@ -100,9 +103,7 @@
         </div>
   </div>
 
- </section> -->
  </section>
-
 <!--------------------------------------- Templates ---------------------------->
 
 

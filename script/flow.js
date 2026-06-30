@@ -1,13 +1,14 @@
-import { animateLose, animateWin } from "./animations.js";
+import { animatedraw, animateLose, animateWin } from "./animations.js";
 import { playCard,drawCard,getCurrentPlayer} from "./gameOps.js";
 import { gameState } from "./gameState.js";
 import { updateGame ,dealCards} from "./render.js";
 
-export function startTurn(){
+export async function startTurn(){
     const player=getCurrentPlayer();
     gameState.cardsPlayed=0;
     //Set Current Player=player
-    dealCards(player,2);
+    dealCards(player, 2, true);
+
     if (player.name == 'Computer') {
         computerTurn();
     }

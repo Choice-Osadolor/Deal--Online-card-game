@@ -9,6 +9,7 @@ body{
     background-repeat: no-repeat;
     row-gap: 1em;
     border: 5px solid black;
+    font-family: 'Fredoka';
 
 }
 
@@ -63,24 +64,39 @@ header{
 
 #controls{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    width: 30%;
+    position: absolute;
+    left: 35%;
+    bottom: 30%;
+    justify-content: space-evenly;
 }
 
 #controls button{
-    padding: 1em;
-    background-color: honeydew;
-    border: lemonchiffon;
+    border-radius: 1em;
+  box-shadow: 0px 5px #645f5f;
+    background-size: 120% 150%;
+    background-position: center;
+    border: white 2px solid;
+    background-image: url('../assets/components/buttons-bg.png');
+    padding:0.5em;
     z-index: 10;
+    width: 30%;
+    cursor: pointer;
     
 }
 
 #controls button.disabled{
-    opacity: 0.2;
+    opacity: 0.5;
     pointer-events: none;
+    box-shadow: none;
+    border-color: transparent;
+
 }
 
 #controls button.enabled{
     opacity: 1;
+    border: black solid 2px;
     pointer-events:all;
 }
 
@@ -89,8 +105,45 @@ header{
     display: none;
 }
 
+#startgame_btn,
+#endturn_btn{
+    width: 15em;
+     border: none;
+    background-color: transparent;
+    background-position: center;
+    background-size: cover;
+    cursor: pointer;
+
+    transition: 0.3s ease-in-out;
+    padding: 2em;
+    border-radius: 1em;
+}
+#startgame_btn{
+    background-image: url('../assets/components/startbg.png');
+}
+#endturn_btn{
+    background-image: url('../assets/components/end-btn.png');
+
+}
+
 #endturn_btn.enabled{
     display: block;
+}
+
+
+
+#playcard_btn.enabled{
+    color: white;
+    border-color: white;
+    background-color: #6b705c;
+}
+
+#bankcard_btn.enabled{
+    background-color: #f6bd60;
+}
+
+#discard_btn.enabled{
+    background-color: #D65A5A;
 }
 
 /* //onclick it should trasnform and scalle the card and stay there*/
@@ -149,12 +202,12 @@ header{
     left: 15%;
     z-index: -10;
     display: flex;
-    width: 330vw;
+    width: 30vw;
 }
 
 #ComputerHand .card{
-width: 120px;
-height: 200px;
+width: 140px;
+height: 240px;
 }
 
 #hand{
@@ -192,6 +245,7 @@ height: 200px;
     align-self: flex-start;
 }
 .properties{
+    max-width: 40vw;
     display: flex;
 flex-direction: row;
 flex-wrap: nowrap;
@@ -344,11 +398,11 @@ header article{
 }
 
 #play-btn{
-    background-image: url('../assets/components/play-btn.png');
+    background-image: url('/assets/components/play-btn.png');
 }
 
 #home-btn{
-    background-image: url('../assets/components/home-btn.png');
+    background-image: url('/assets/components/home-btn.png');
 }
 
 
@@ -369,8 +423,8 @@ header article{
     width: 35em;
 }
 
-#home-bg button,
-#overview button{
+
+#home-bg button{
      border: none;
     background-color: transparent;
     background-position: center;

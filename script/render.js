@@ -1,3 +1,4 @@
+import { animatedraw } from './animations.js';
 import {createCard,drawCard,shuffleDeck,getCurrentPlayer,transferCard} from './gameOps.js'
 import { gameState } from './gameState.js';
 import { saveGame } from './storage.js';
@@ -17,26 +18,11 @@ document.querySelector('#deck').innerHTML = ''; // Clear existing deck display
 const topCard = gameState.deck[gameState.deck.length - 1];
 const newcard=createCard(topCard,'deck'); // Create a card element based on the top card object
 const deckcard=newcard.querySelector('.deckcard');
+deckcard.setAttribute('id','topCard');
+// Our job is toretrieve the deckcard created here, .deckcard, specially in the deck container;
 
 document.querySelector('#deck').appendChild(newcard);
 
-// deckcard.addEventListener('click', () => {
-    
-//     deckcard.classList.add('zoomed');
-//     setTimeout(() => {
-//             deckcard.classList.add('flip');}
-//             , 800);
-//     setTimeout(() => {
-//         const player = getCurrentPlayer();
-//         drawCard(player);
-//         deckcard.classList.remove('zoomed','flip', 'on-deck');
-//         deckcard.classList.add('in-hand' , 'flip');
-//         renderDeck();
-//         renderHand();
-//     }, 2000);
-
-// });
-// CLICK ANIMATION WILL BE TRASFERED ON DEALCARD, WHEN CARDS ARE DEALT< DO
 }
 
 export function renderHand() {
@@ -136,17 +122,31 @@ export function renderPile(){
     })
 }
     
+export async function dealCards(player, amount, animated=false) {
 
-export function dealCards(player, amount) {
-    for (let i = 0; i < amount; i++) {
+for (let i = 0; i < amount; i++) {
+
+    renderDeck();
+    if(animated==true && player.name=='You'){
+        await animatedraw()
+            .then(()=>{
+                setTimeout(() => {
+                    drawCard(player);
+                    renderHand();
+
+                }, 300 * i);
+            })
+    }else{
         setTimeout(() => {
             drawCard(player);
             renderHand();
-            renderDeck();
+
         }, 300 * i);
     }
+
 }
 
+}
 export function renderButtons(options) {
 
     const bankBtn = document.querySelector("#bankcard_btn");
