@@ -17,8 +17,7 @@ export async function startTurn(){
     }
 
     // Cards Played variable
-console.log(gameState.cardsPlayed);
-console.log(typeof gameState.cardsPlayed);
+console.log('You have played '+gameState.cardsPlayed+' moves.');
 
 }
 
@@ -94,7 +93,7 @@ export function endGame(){
 }
 
 export function hasWon(player){
-    if(player.fullSets==2){
+    if(player.fullSets==1 && player.playerHand>5){
         if(player.name=='You'){
             animateWin();
         }else{

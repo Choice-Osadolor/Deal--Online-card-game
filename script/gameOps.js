@@ -338,8 +338,28 @@ const nextPlayer =gameState.players[(gameState.currentPlayer + 1) % gameState.pl
                 gameState.currentAction = null;
                 gameState.targetedCard=null;
             playBtn.textContent='Play Card';
+                return;
+            case "stealSet":
+                const foundSet = nextPlayer.playerProperties.filter(p => p.color === gameState.targetedSet);
+                foundSet.forEach(card=>{
+                    transferCard(nextPlayer.playerProperties, player.playerProperties, card);
+                })
+                gameState.currentAction = null;
+                gameState.targetedSet=null;
+                console.log('A set has been stolen');
+                return;
+            case "rent":
+                // const propertySet = player.playerProperties.filter(p => p.color === gameState.targetedSet);               
+                // const rent = propertySet[0].rent[propertySet.length - 1];
 
+                nextPlayer.playerBank-=20;
+                player.playerBank+=20;
+                gameState.currentAction=null;
+                gameState.targetedSet=null;
+                console.log('Opponent has been chaged rent, and WE UP');
+            return;
             }
+
         saveGame(gameState);
         updateGame();
         return;
@@ -437,11 +457,6 @@ const isOpponent = player !== currentPlayer;
         case "It's My Birthday":
             nextPlayer.playerBank-=2;
             player.playerBank+=2;
-            gameState.currentAction=null;
-            break;
-        case "Rent":
-            nextPlayer.playerBank-=card.value;
-            player.playerBank+=card.value;
             gameState.currentAction=null;
             break;
         case "Debt Collector":

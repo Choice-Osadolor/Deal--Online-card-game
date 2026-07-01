@@ -5,6 +5,9 @@ import { animatedraw } from './animations.js';
 import { startTurn, endTurn,hasWon,endGame} from './flow.js';
 
 
+
+
+
 document.querySelector('#anim').addEventListener('click',()=>{
 animatedraw();
 })

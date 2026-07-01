@@ -71,20 +71,29 @@ gameState.players.forEach(player =>{//for each player, append their properties
             propertySet.dataset.id = card.color;
             properties.appendChild(propertySet);
         }
+// const matchingCards = player.playerProperties.filter(
+//     p => p.color === card.color
+// );
+
+// if (matchingCards.length === card.setSize) {
+//     player.fullSets++;
+// }
 
     
     const cardEl = createCard(card, 'properties');
     const deckCard = cardEl.querySelector(".deckcard");
     if (gameState.currentAction?.name === "Sly Deal" && isOpponent) {
         deckCard.classList.add("clickable");
-
     }
     if (gameState.currentAction?.name === "Forced Deal") {
         deckCard.classList.add("clickable");
     }
     if (gameState.currentAction?.name === "Deal Breaker" && isOpponent) {
         propertySet.classList.add("clickable");
-
+    }
+    if (gameState.currentAction?.type === "rent" && !isOpponent) {
+        if((gameState.currentAction.color1==propertySet.dataset.id)|| (gameState.currentAction.color2==propertySet.dataset.id))
+        propertySet.classList.add("clickable");
     }
 deckCard.addEventListener("click", () => {
     // const cardId = Number(cardEl.dataset.id);
@@ -109,6 +118,12 @@ deckCard.addEventListener("click", () => {
         }
         return;
     }
+
+    // if (gameState.currentAction?.name === "Deal Breaker") {
+    //     gameState.targetedCard = gameState.selectedCard;
+    //     gameState.selectedCard = null;
+    //     return;
+    // }
         saveGame(gameState);
     // if (gameState.currentAction) return;
 
@@ -119,6 +134,24 @@ deckCard.addEventListener("click", () => {
 
 
 });
+
+propertySet.addEventListener('click',()=>{
+    console.log('set has been clicked');
+    propertySet.classList.toggle("clicked");
+    playBtn.textContent='Confirm';
+
+
+    if (gameState.currentAction?.name === "Deal Breaker" && isOpponent) {
+        gameState.targetedSet = propertySet.dataset.id;
+        console.log('im taking your set'+gameState.targetedSet);
+    }
+
+    if (gameState.currentAction?.type === "rent" && !isOpponent) {
+        gameState.targetedSet = propertySet.dataset.id;
+        console.log('im Charging you rent on '+gameState.targetedSet);
+    }
+        saveGame(gameState);
+})
     
 propertySet.appendChild(cardEl);
 
