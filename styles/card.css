@@ -90,7 +90,7 @@
 }
 
 #hand .name{
-      font-size: clamp(1.4rem, 1vw, 3rem);   
+      font-size: clamp(1.2rem, 1vw, 3rem);   
   
 }
 
@@ -196,4 +196,38 @@ border-radius: 100%;
     font-size: 4em;
     bottom: 0%;
     left: 20%;
+}
+
+
+
+@media (max-width: 900px) and (orientation: portrait) {
+    .frontcard{
+    width: 7em;
+    height: 10.5em;
+    margin-bottom: -60px;
+    }
+}
+
+@media (max-width: 900px) and (orientation: landscape) {
+    .frontcard{
+    width: 7em;
+    height: 10.5em;
+    margin-bottom: 0px;
+    }
+
+}
+
+@media(max-width:900px){
+        .frontcard .value{
+    font-size: 1em;
+    }
+
+    .main .description{
+        font-size: 0.5em;
+    }
+
+    #hand .name{
+        font-size: 0.7em;   
+    
+    }
 }

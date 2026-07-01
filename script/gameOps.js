@@ -89,7 +89,7 @@ export function getCardOptions(card,player){
         options.push("play");
         options.push("bank");
     }
-    if (player.playerHand.length > 7 && gameState.cardsPlayed==3) {
+    if (player.playerHand.length > 7) {
         options.push("discard");
     }
 // If card is property and is in player properteis

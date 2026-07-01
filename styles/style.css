@@ -4,7 +4,8 @@ body{
     height: 100vh;
     position: relative;
     background-image: url('../assets/grassgreen.png');
-    background-size: 100% 100%;
+    background-position: top;
+    background-size: cover 100%;
     width:100%;
     background-repeat: no-repeat;
     row-gap: 1em;
@@ -25,7 +26,7 @@ main{
     margin-top:20px;
     background-image: url('../assets/woodenboard.png');
     background-size: contain;
-    background-repeat:repeat-x;
+    background-repeat:repeat;
     background-position: center;
     height: 70%;
     width: 100%;
@@ -191,8 +192,9 @@ header{
                                        /* Hand of Cards */
 #hand , #ComputerHand{
   display: flex;
-  justify-content: center;
   width: 60%;
+  justify-content: center;
+
   height: max-content;
 }
 
@@ -294,12 +296,12 @@ header{
     text-align: center;
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-between;
     align-items: center;
 
     margin-top: 0%;
     width: 100%;
-    height: 10vh;
+    height: 5vh;
     
 
     }
@@ -315,8 +317,14 @@ header button{
 
 
 header article{
-    width: 80%;
+    text-wrap: nowrap;
+    width:20%;
     text-align: end;
+    padding-right: 1em;
+    backdrop-filter: blur(20px);
+    color: white;
+    border-radius: 2em;
+    border: white 1px solid;
 }
 
 
@@ -423,6 +431,7 @@ header article{
     background-image: url('../assets/screens/load.png');
     background-position: center;
     background-size: cover;
+    background-repeat: no-repeat;
     width: 100%;
     height: 100%;
 }
@@ -449,4 +458,91 @@ header article{
 #home-bg button:hover{
     transform: translateY(-20px);
     transition: 0.3s ease-in-out;
+}
+
+
+
+                                                        /* Mobile View */
+@media (max-width: 600px) and (orientation: portrait) {
+
+
+#home-bg{
+    background-image: url('../assets/screens/load-mobile.png');
+    background-position: center;
+    background-size: fill;
+}
+
+#home-bg button{
+    bottom: 40%;
+    left: 5%;
+    height: 8em;
+    width: 90%;
+}
+/* 
+#deck{
+    transform: rotate(-90deg);
+} */
+
+#hand{
+    margin-top: 20px;
+  position: fixed;
+  bottom: -5%;
+
+}
+#hand .deckcard {
+  margin-left: -40px; /* overlap */
+  transition: transform 0.3s;
+}
+
+#hand{
+    flex-wrap: wrap;
+    width: 100%;
+    height: 30%;
+    row-gap: -3em;
+    padding: 0%;
+}
+.card{
+  background-color: transparent;
+  width: max-content;
+  height:max-content;
+  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+  transition: ease-in-out 0.3s;
+}
+
+#controls{
+    left: 0%;
+    width: 100%;
+}
+
+header article{
+    width:40%;
+}
+
+article h1{
+    font-size: 2em;
+}
+
+}
+
+
+@media (max-width: 900px) and (orientation: landscape) {
+
+
+.card{
+  background-color: transparent;
+  width: max-content;
+  height:max-content;
+  perspective: 1000px; /* Remove this if you don't want the 3D effect */
+  transition: ease-in-out 0.3s;
+}
+
+
+#hand .deckcard {
+  margin-left: -20px; /* overlap */
+  transition: transform 0.3s;
+}
+
+
+
+
 }
