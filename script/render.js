@@ -53,6 +53,8 @@ export function renderHand() {
 }
 
 export function renderProperties() {
+        const playBtn = document.querySelector("#playcard_btn");
+
 
 gameState.players.forEach(player =>{//for each player, append their properties
     const properties=document.querySelector(`#${player.name}`);
@@ -69,29 +71,53 @@ gameState.players.forEach(player =>{//for each player, append their properties
             propertySet.dataset.id = card.color;
             properties.appendChild(propertySet);
         }
+
     
     const cardEl = createCard(card, 'properties');
     const deckCard = cardEl.querySelector(".deckcard");
     if (gameState.currentAction?.name === "Sly Deal" && isOpponent) {
-        deckCard.classList.toggle("clickable");
+        deckCard.classList.add("clickable");
+
     }
     if (gameState.currentAction?.name === "Forced Deal") {
         deckCard.classList.add("clickable");
     }
+    if (gameState.currentAction?.name === "Deal Breaker" && isOpponent) {
+        propertySet.classList.add("clickable");
 
+    }
 deckCard.addEventListener("click", () => {
-    deckCard.classList.add("clicked");
-    gameState.selectedCard=card;
-    // We're choosing a property to steal
-    // if (gameState.currentAction?.type === "steal" && isOpponent) {
-        gameState.targetedCard = gameState.selectedCard;
-        console.log("Target selected:", gameState.targetedCard.name);
-    //     return;
-    // }
-    // Ignore clicks on properties while an action is active
-    if (gameState.currentAction) return;
+    // const cardId = Number(cardEl.dataset.id);
+    // const foundCard = player.playerProperties.find(c => c.id === cardId);
+    deckCard.classList.toggle("clicked");
+    playBtn.textContent='Confirm';
 
-    // Normal property selection (if you need it later)
+    gameState.selectedCard=card;
+
+    if (gameState.currentAction?.name === "Sly Deal") {
+        gameState.targetedCard = gameState.selectedCard;
+        gameState.selectedCard = null;
+        return;
+    }
+    if (gameState.currentAction?.name === "Forced Deal") {
+        // If a card hasnt  been targeted yet, then set the crd clciked, as selected(already targeted opponenets crad, ick yorus now))
+        /*card hasnt been targetted= were at teh ssstart of our swap, and need to select then target idk*/
+        if(!gameState.targetedCard){
+            gameState.targetedCard=gameState.selectedCard;
+        }else{
+            gameState.selectedCard=card;
+        }
+        return;
+    }
+        saveGame(gameState);
+    // if (gameState.currentAction) return;
+
+    //         gameState.selectedCard = foundCard;
+    //         console.log("Selected:", foundCard.name+' property');
+        // gameState.targetedCard = gameState.selectedCard;
+        console.log("Target selected:", gameState.targetedCard.name);
+
+
 });
     
 propertySet.appendChild(cardEl);
@@ -154,13 +180,9 @@ export function renderButtons(options) {
     const discardBtn = document.querySelector("#discard_btn");
 
     playBtn.classList.toggle("enabled", options.includes("play"));
-    // if(gameState.currentAction){
-    //     if(gameState.currentAction)
-    //     playBtn.textContent='Action';
-    // }else{
-    //         playBtn.textContent='Play Card';
-
-    // }
+    if(gameState.currentAction){
+        playBtn.textContent=currentAction.type;
+    }
     bankBtn.classList.toggle("enabled", options.includes("bank"));
     discardBtn.classList.toggle("enabled", options.includes("discard"));
 

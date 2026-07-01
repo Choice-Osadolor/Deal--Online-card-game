@@ -32,9 +32,12 @@ start.addEventListener('click', () => {
                 endGame();
             }  
         }, 1000);
-        if(gameState.cardsPlayed>=3){
-            endTurn();
+        if(!gameState.currentAction){
+            if(gameState.cardsPlayed>=3){
+                endTurn();
+            }            
         }
+
     });
 
     // Add end turn button

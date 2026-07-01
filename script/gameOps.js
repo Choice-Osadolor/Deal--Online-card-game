@@ -79,17 +79,17 @@ export function getCurrentPlayer(){
 export function getCardOptions(card,player){
     let options=[];
 
-    if(card.color){
+    if(card.category=='property'){
         options.push('play');
     }    
     if (card.type === "money") {
         options.push("bank");
     }
-    if (card.category){
+    if (card.category=='action'){
         options.push("play");
         options.push("bank");
     }
-    if (player.playerHand.length > 7) {
+    if (player.playerHand.length > 7 && gameState.cardsPlayed==3) {
         options.push("discard");
     }
 // If card is property and is in player properteis
@@ -290,7 +290,14 @@ export function createCard(card, loc, hidden = false) {
     return clone;
 }
 
+export function isFullSet(player, color) {
+    const matchingCards = player.playerProperties.filter(
+        p => p.color === color
+    );
 
+    if (matchingCards.length === 0) return false;
+    return matchingCards.length >= matchingCards[0].setSize;
+}
 
 export function drawCard(player) {
     
@@ -309,23 +316,29 @@ return drawnCard;
 }
 
 
-export function playCard(player) {
-const currentPlayer = getCurrentPlayer();
+export function playCard(player){
+    const playBtn = document.querySelector("#playcard_btn");
 const nextPlayer =gameState.players[(gameState.currentPlayer + 1) % gameState.players.length];    
     console.log('opponent is:' + nextPlayer.name);
 
     if(gameState.currentAction){
-    // If an action is in progress, depending on what action type it is, finish action
+    // If an action is in progress, depen'
+
          switch (gameState.currentAction.type) {
             case "steal":
                 transferCard(nextPlayer.playerProperties, player.playerProperties, gameState.targetedCard);
                 gameState.currentAction = null;
                 gameState.targetedCard=null;
+        playBtn.textContent='Play Card';
+
+                return;
             case "swap":
                 transferCard(nextPlayer.playerProperties, player.playerProperties, gameState.targetedCard);
                 transferCard(player.playerProperties,nextPlayer.playerProperties, gameState.selectedCard);
                 gameState.currentAction = null;
                 gameState.targetedCard=null;
+            playBtn.textContent='Play Card';
+
             }
         saveGame(gameState);
         updateGame();
@@ -362,10 +375,16 @@ const nextPlayer =gameState.players[(gameState.currentPlayer + 1) % gameState.pl
         gameState.currentAction = card;
         gameState.selectedCard = null;
         saveGame(gameState);
-        resolveAction(card, player);
 
+        if (card.name === "Sly Deal" || card.name === "Forced Deal") {
+            updateGame();
+            return;
+        }
+
+        resolveAction(card, player);
         updateGame();
         return;
+
     }
 
 
