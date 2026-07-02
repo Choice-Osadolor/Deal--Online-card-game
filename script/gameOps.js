@@ -92,6 +92,19 @@ export function getCardOptions(card,player){
     if (player.playerHand.length > 7) {
         options.push("discard");
     }
+    if(card.name=='House' || card.name=='Hotel'){
+        if (player.fullSets === 0) {
+            options = options.filter(option => option !== "play");
+        }
+    }
+
+    if(card.name=='Just Say No'){
+        if(currentAction && player.name=='You'){
+            options = options.filter(option => option !== "play");
+    
+        }
+    }
+
 // If card is property and is in player properteis
     // const inHand = player.playerHand.filter(
     //         p=> p.color === card.color
@@ -317,6 +330,9 @@ return drawnCard;
 
 
 export function playCard(player){
+console.log("currentAction:", gameState.currentAction?.name);
+console.log("selectedCard:", gameState.selectedCard?.name);
+console.log("targetedCard:", gameState.targetedCard?.name);
     const playBtn = document.querySelector("#playcard_btn");
 const nextPlayer =gameState.players[(gameState.currentPlayer + 1) % gameState.players.length];    
     console.log('opponent is:' + nextPlayer.name);
@@ -358,6 +374,9 @@ const nextPlayer =gameState.players[(gameState.currentPlayer + 1) % gameState.pl
                 gameState.targetedSet=null;
                 console.log('Opponent has been chaged rent, and WE UP');
             return;
+            case "Just Say No":
+                gameState.currentAction=null;
+            return;
             }
 
         saveGame(gameState);
@@ -396,10 +415,6 @@ const nextPlayer =gameState.players[(gameState.currentPlayer + 1) % gameState.pl
         gameState.selectedCard = null;
         saveGame(gameState);
 
-        if (card.name === "Sly Deal" || card.name === "Forced Deal") {
-            updateGame();
-            return;
-        }
 
         resolveAction(card, player);
         updateGame();
@@ -465,9 +480,48 @@ const isOpponent = player !== currentPlayer;
             gameState.currentAction=null;
             break;
         }
+if(player.name=='Computer'){
+    console.log('TESTING COMPUTERS RESOLVE FOR ACTIONS');
+    switch(card.type) {
+        case "steal":
+        gameState.targetedCard=nextPlayer.playerProperties[0];
+        saveGame(gameState);
+        playCard(player);
+        console.log('Your Card has been stolen')
+            break;
+        case "swap":
+        gameState.targetedCard=nextPlayer.playerProperties[0];
+        gameState.selectedCard=player.playerProperties[0];
+        saveGame(gameState);
+        playCard(player);
+            break;
+        case "stealSet":
+            const fullSet = nextPlayer.playerProperties.find(card =>
+                isFullSet(nextPlayer, card.color)
+            );
 
+            if (fullSet) {
+                gameState.targetedSet = fullSet.color;
+                saveGame(gameState)
+                playCard(player);
+            }
+        case "rent":
+        gameState.targetedCard=player.playerProperties[0];
+        saveGame(gameState);
+        
+        }}
         
 }
+
+
+// Strategise
+// function chooseBestProperty(player){
+
+// }
+
+// function chooseBestMove(player){
+
+// }
 
 
 export function transferCard(from, to, card) {

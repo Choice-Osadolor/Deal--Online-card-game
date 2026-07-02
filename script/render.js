@@ -95,6 +95,11 @@ gameState.players.forEach(player =>{//for each player, append their properties
         if((gameState.currentAction.color1==propertySet.dataset.id)|| (gameState.currentAction.color2==propertySet.dataset.id))
         propertySet.classList.add("clickable");
     }
+
+    if (gameState.currentAction?.name === "House" && !isOpponent) {
+        if((gameState.currentAction.color1==propertySet.dataset.id)|| (gameState.currentAction.color2==propertySet.dataset.id))
+        propertySet.classList.add("clickable");
+    }
 deckCard.addEventListener("click", () => {
     // const cardId = Number(cardEl.dataset.id);
     // const foundCard = player.playerProperties.find(c => c.id === cardId);

@@ -48,31 +48,34 @@ console.log("Computer turn started");
 
         if (matchingCards.length > 0 || card.category=='property') {
             gameState.selectedCard = card;
-try {
-    playCard(player);
-} catch (err) {
-    console.error("AI failed while playing:", err);
-}            updateGame();
+            try {
+                playCard(player);
+            } catch (err) {
+                console.error("AI failed while playing:", err);
+            }            
+            updateGame();
             setTimeout(() => {
                 if(hasWon(player)){
                     endGame();
                 }  
             }, 1000);
         }else if(card.type=='money'){
-                gameState.selectedCard=card;
-try {
-    playCard(player);
-} catch (err) {
-    console.error("AI failed while playing:", err);
-}                updateGame();
-            }else if(card.type=='action'){
-                gameState.selectedCard=card;
-try {
-    playCard(player);
-} catch (err) {
-    console.error("AI failed while playing:", err);
-}                updateGame();    
-            }     
+            gameState.selectedCard=card;
+            try {
+                playCard(player);
+            } catch (err) {
+                console.error("AI failed while playing:", err);
+            }                
+            updateGame();
+        }else if(card.category=='action'){
+            gameState.selectedCard=card;
+            try {
+                playCard(player);
+            } catch (err) {
+                console.error("AI failed while playing:", err);
+            }                
+            updateGame();    
+        }     
            
     })
 
@@ -87,18 +90,33 @@ try {
 
 }
 
+// function computerResolveAction(player){
+
+//     switch (gameState.currentAction.name) {
+//         case 'Sly Deal':
+//         // 
+//             break;
+    
+//         default:
+//             break;
+//     }
+//     playCard(player)
+// }
+
 export function endGame(){
     console.log('This game is over, '+getCurrentPlayer().name+' won');
     
 }
 
-export function hasWon(player){
-    if(player.fullSets==1 && player.playerHand>5){
-        if(player.name=='You'){
+export function hasWon(player) {
+    if (player.fullSets >= 2 && player.playerBank >= 0) {
+        if (player.name === "You") {
             animateWin();
-        }else{
+        } else {
             animateLose();
         }
         return true;
     }
+
+    return false;
 }
