@@ -6,7 +6,8 @@ import { startTurn, endTurn,hasWon,endGame} from './flow.js';
 
 
 
-
+let music = document.getElementById("myMusic");
+music.volume = 0.05;
 
 document.querySelector('#anim').addEventListener('click',()=>{
 animatedraw();
@@ -16,6 +17,7 @@ console.log(gameState.deck.length);
 const start=document.getElementById('startgame_btn');
 const end=document.getElementById('endturn_btn');
 start.addEventListener('click', () => {
+    music.play();
     start.classList.add('disabled');
     end.classList.remove('disabled');
     gameInit();

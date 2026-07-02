@@ -186,12 +186,20 @@ export function renderPile(){
     })
 }
     
+
+let drawSound=document.getElementById('drawSound')
+function playAudio() {
+  drawSound.play();
+  drawSound.volume = 0.2;
+}
+
 export async function dealCards(player, amount, animated=false) {
 
 for (let i = 0; i < amount; i++) {
 
     renderDeck();
     if(animated==true && player.name=='You'){
+        playAudio();
         await animatedraw()
             .then(()=>{
                 drawCard(player);
@@ -248,7 +256,7 @@ export function gameInit() {
 //everytime a chnag ie made, the UI updates eg. play card, discard card, action card, win, 
 export function updateGame(){
     renderDeck();
-    renderProperties();
+    renderProperties();  
     renderHand();
     renderBank();
     renderPile();

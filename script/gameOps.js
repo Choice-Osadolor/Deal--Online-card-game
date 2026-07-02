@@ -100,9 +100,14 @@ export function getCardOptions(card,player){
 
     if(card.name=='Just Say No'){
         if(currentAction && player.name=='You'){
-            options = options.filter(option => option !== "play");
-    
+            options = options.filter(option => option !== "play");    
         }
+    }
+    if(gameState.cardsPlayed==3){
+            options = options.filter(option => option !== "play");
+            options = options.filter(option => option !== "bank");
+
+  
     }
 
 // If card is property and is in player properteis
@@ -329,12 +334,21 @@ return drawnCard;
 }
 
 
+let playSound=document.getElementById('playSound')
+function playAudio() {
+  playSound.play();
+}
+
+
 export function playCard(player){
 console.log("currentAction:", gameState.currentAction?.name);
 console.log("selectedCard:", gameState.selectedCard?.name);
 console.log("targetedCard:", gameState.targetedCard?.name);
+
+playAudio();
+
     const playBtn = document.querySelector("#playcard_btn");
-const nextPlayer =gameState.players[(gameState.currentPlayer + 1) % gameState.players.length];    
+    const nextPlayer =gameState.players[(gameState.currentPlayer + 1) % gameState.players.length];    
     console.log('opponent is:' + nextPlayer.name);
 
     if(gameState.currentAction){
@@ -374,7 +388,7 @@ const nextPlayer =gameState.players[(gameState.currentPlayer + 1) % gameState.pl
                 gameState.targetedSet=null;
                 console.log('Opponent has been chaged rent, and WE UP');
             return;
-            case "Just Say No":
+            case "block":
                 gameState.currentAction=null;
             return;
             }
@@ -451,7 +465,6 @@ export function discardCard(card, player) {
         return;
     }
 
-    gameState.cardsPlayed++;
     player.playerHand = player.playerHand.filter(c => c.id !== card.id);
     gameState.discardPile.push(card);
     gameState.selectedCard = null;
@@ -499,12 +512,12 @@ if(player.name=='Computer'){
             const fullSet = nextPlayer.playerProperties.find(card =>
                 isFullSet(nextPlayer, card.color)
             );
-
             if (fullSet) {
                 gameState.targetedSet = fullSet.color;
                 saveGame(gameState)
                 playCard(player);
             }
+            break;
         case "rent":
         gameState.targetedCard=player.playerProperties[0];
         saveGame(gameState);
