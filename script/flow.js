@@ -2,6 +2,7 @@ import { animatedraw, animateLose, animateWin } from "./animations.js";
 import { playCard,drawCard,getCurrentPlayer, discardCard} from "./gameOps.js";
 import { gameState } from "./gameState.js";
 import { updateGame ,dealCards} from "./render.js";
+import { saveGame } from "./storage.js";
 
 export async function startTurn(){
     const player=getCurrentPlayer();
@@ -24,7 +25,8 @@ console.log('You have played '+gameState.cardsPlayed+' moves.');
 
 export function endTurn(){
     const player = getCurrentPlayer();
-
+    gameState.turnstaken++;
+    saveGame(gameState);
 
     if (player.playerHand.length > 7 && player.name=='You') {
         alert('You have more than 7 cards, discard cards before endin your turn')
@@ -109,7 +111,9 @@ export function endGame(){
 }
 
 export function hasWon(player) {
-    if (player.fullSets >= 2 && player.playerBank >= 0) {
+    // if (player.fullSets >= 2 && player.playerBank >= 0) {
+    if (player.fullSets ==1) {
+
         if (player.name === "You") {
             animateWin();
         } else {

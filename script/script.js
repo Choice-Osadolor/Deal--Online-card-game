@@ -4,6 +4,9 @@ import { gameState } from './gameState.js';
 import { animatedraw } from './animations.js';
 import { startTurn, endTurn,hasWon,endGame} from './flow.js';
 
+// document.getElementById('moneyearned').textContent=`Money Earned: ${gameState.winner.playerBank}m`;
+document.getElementById('turnstaken').textContent=gameState.turnsTaken;
+// document.getElementById('moneyearned').textContent=gameState.winner.playerBank;
 
 
 let music = document.getElementById("myMusic");

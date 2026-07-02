@@ -190,7 +190,7 @@ export function renderPile(){
 let drawSound=document.getElementById('drawSound')
 function playAudio() {
   drawSound.play();
-  drawSound.volume = 0.2;
+  drawSound.volume = 0.6;
 }
 
 export async function dealCards(player, amount, animated=false) {

@@ -202,6 +202,7 @@ export const gameState = {
 
     isGameOver:false,
     winner:null,
+    turnstaken:0
 
   // TargetSet
   // target Player

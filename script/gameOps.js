@@ -392,7 +392,8 @@ playAudio();
                 gameState.currentAction=null;
             return;
             }
-
+updateFullSets(player);
+updateFullSets(nextPlayer);
         saveGame(gameState);
         updateGame();
         return;
@@ -407,18 +408,8 @@ playAudio();
     console.log(gameState.cardsPlayed);
 
     if (card.color && card.setSize != null) {
-        const matchingCards = player.playerProperties.filter(
-            p => p.color === card.color
-        );
-        const completedSet = matchingCards.length + 1;
-        console.log(`Playing ${card.name} (${card.color}); existing same-color cards=${matchingCards.length}; setSize=${card.setSize}`);
-        if (completedSet === card.setSize) {
-            console.log('This is a full set pls work');
-            player.fullSets++;
-            saveGame(gameState);
-            console.log('you have '+player.fullSets + 'full sets')
-        }
         player.playerProperties.push(card); // Save in game state
+        updateFullSets(player);
     } else if (card.type === 'money') {
     player.playerBank += card.value;
     } 
@@ -536,7 +527,24 @@ if(player.name=='Computer'){
 
 // }
 
+export function updateFullSets(player) {
 
+    let fullSets = 0;
+
+    const colours = [...new Set(
+        player.playerProperties.map(card => card.color)
+    )];
+
+    colours.forEach(colour => {
+        if (isFullSet(player, colour)) {
+            fullSets++;
+        }
+    });
+
+    player.fullSets = fullSets;
+
+    saveGame(gameState);
+}
 export function transferCard(from, to, card) {
     const index = from.findIndex(c => c.id === card.id);
 
