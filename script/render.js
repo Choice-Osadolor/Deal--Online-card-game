@@ -82,6 +82,8 @@ gameState.players.forEach(player =>{//for each player, append their properties
     
     const cardEl = createCard(card, 'properties');
     const deckCard = cardEl.querySelector(".deckcard");
+
+    // if(gameState.currentPlayer==)
     if (gameState.currentAction?.name === "Sly Deal" && isOpponent) {
         deckCard.classList.add("clickable");
     }
@@ -92,7 +94,6 @@ gameState.players.forEach(player =>{//for each player, append their properties
         propertySet.classList.add("clickable");
     }
     if (gameState.currentAction?.type === "rent" && !isOpponent) {
-        if((gameState.currentAction.color1==propertySet.dataset.id)|| (gameState.currentAction.color2==propertySet.dataset.id))
         propertySet.classList.add("clickable");
     }
 

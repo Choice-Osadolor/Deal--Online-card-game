@@ -109,6 +109,14 @@ export function getCardOptions(card,player){
 
   
     }
+    const nextPlayer =gameState.players[(gameState.currentPlayer + 1) % gameState.players.length];    
+
+    if(card.type=='steal' || card.type=='stealSet' ||card.type=='swap'){
+        if(nextPlayer.playerProperties.length>=0){
+                options = options.filter(option => option !== "play");
+
+        }
+    }
 
 // If card is property and is in player properteis
     // const inHand = player.playerHand.filter(
@@ -245,9 +253,17 @@ export function createCard(card, loc, hidden = false) {
                             card.description='Needs to be played with a rent card'
                             i.setAttribute('src',"./assets/illustrations/double.png");
                             break; 
+                        case "Deal Breaker":
+                            card.description='Steal an opponents full,complete set';
+                            i.setAttribute('src',"./assets/illustrations/deal.png");  
+                            break; 
                         case "Sly Deal":
                             card.description='Steal a property(Cannot be part of a full set)';
-                            i.setAttribute('src',"./assets/illustrations/steal.png");                
+                            i.setAttribute('src',"./assets/illustrations/steal.png");  
+                            break;              
+                        case "Forced Deal":
+                            card.description='swap any property with another player';
+                            i.setAttribute('src',"./assets/illustrations/swap.png");                
                         default:
                             break;
                     }
@@ -382,8 +398,10 @@ playAudio();
                 // const propertySet = player.playerProperties.filter(p => p.color === gameState.targetedSet);               
                 // const rent = propertySet[0].rent[propertySet.length - 1];
 
-                nextPlayer.playerBank-=20;
-                player.playerBank+=20;
+                const propertySet=player.playerProperties.filter(p=>p.color===gameState.targetedSet);
+                const rent=propertySet[0].rent[propertySet.length];
+                nextPlayer.playerBank-=rent;
+                player.playerBank+=rent;
                 gameState.currentAction=null;
                 gameState.targetedSet=null;
                 console.log('Opponent has been chaged rent, and WE UP');
@@ -510,8 +528,15 @@ if(player.name=='Computer'){
             }
             break;
         case "rent":
-        gameState.targetedCard=player.playerProperties[0];
-        saveGame(gameState);
+const colours = [...new Set(
+    player.playerProperties.map(card => card.color)
+)];
+
+const bestColour = colours[0]; // for now
+
+gameState.targetedSet = bestColour;
+saveGame(gameState);
+playCard(player);
         
         }}
         

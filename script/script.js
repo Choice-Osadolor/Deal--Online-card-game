@@ -4,9 +4,13 @@ import { gameState } from './gameState.js';
 import { animatedraw } from './animations.js';
 import { startTurn, endTurn,hasWon,endGame} from './flow.js';
 
+let startDate;
+let endDate;
+
 // document.getElementById('moneyearned').textContent=`Money Earned: ${gameState.winner.playerBank}m`;
-document.getElementById('turnstaken').textContent=gameState.turnsTaken;
-// document.getElementById('moneyearned').textContent=gameState.winner.playerBank;
+document.querySelectorAll('.turnstaken').forEach(container=>{
+    container.textContent=`Turns taken:${gameState.turnstaken}`;
+})
 
 
 let music = document.getElementById("myMusic");
@@ -20,6 +24,8 @@ console.log(gameState.deck.length);
 const start=document.getElementById('startgame_btn');
 const end=document.getElementById('endturn_btn');
 start.addEventListener('click', () => {
+startDate = Date.now();
+
     music.play();
     start.classList.add('disabled');
     end.classList.remove('disabled');
@@ -38,6 +44,22 @@ start.addEventListener('click', () => {
         setTimeout(() => {
             if(hasWon(player)){
                 endGame();
+                endDate = Date.now();
+                const timeDifferenceMS = endDate - startDate;
+                const timeDifferenceMins = Math.floor(timeDifferenceMS / 60000);
+
+    document.querySelectorAll('.moneyearned').forEach(container => {
+        container.textContent = `Time: ${minutes}m ${seconds}s`;
+    });
+document.querySelectorAll('.turnstaken').forEach(container=>{
+    container.textContent=`Turns taken:${gameState.turnstaken}`;
+})
+
+const winner=gameState.winner;
+document.querySelectorAll('.moneyearned').forEach(container=>{
+    container.textContent=`Money earned:${winner.playerBank}m`;
+})
+
             }  
         }, 1000);
         if(!gameState.currentAction){
@@ -123,3 +145,4 @@ discardBtn.addEventListener('click', () => {
     discardCard(card, player);
     updateGame();
 });
+

@@ -5,6 +5,11 @@ import { updateGame ,dealCards} from "./render.js";
 import { saveGame } from "./storage.js";
 
 export async function startTurn(){
+const startDate = new Date('2023-08-15T00:00:00');
+const endDate = Date.now();
+const timeDifferenceMS = endDate - startDate;
+const timeDifferenceMins = Math.floor(timeDifferenceMS / 60000);
+
     const player=getCurrentPlayer();
     gameState.cardsPlayed=0;
     //Set Current Player=player
@@ -106,6 +111,7 @@ console.log("Computer turn started");
 // }
 
 export function endGame(){
+
     console.log('This game is over, '+getCurrentPlayer().name+' won');
     
 }
@@ -119,6 +125,7 @@ export function hasWon(player) {
         } else {
             animateLose();
         }
+        gameState.winner=player;
         return true;
     }
 

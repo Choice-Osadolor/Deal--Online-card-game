@@ -51,7 +51,63 @@ export const properties = [
   { name: "Utility", color: "#D8E2DC", setSize: 2, value: 2, id: 24, rent:[1,2] },
   { name: "Utility", color: "#D8E2DC", setSize: 2, value: 2, id: 240, rent:[1,2] },
 
-  
+
+
+
+
+
+
+                                                      // DUPLICATEs
+    { name: "Old Kent Road", color: "brown", setSize: 2, value: 1, id: 111 ,rent:[1,2]},
+  { name: "Whitechapel Road", color: "brown", setSize: 2, value: 1, id: 222 ,rent:[1,2]},
+
+  // Light Blue
+  { name: "The Angel Islington", color: "lightBlue", setSize: 3, value: 1, id: 333 ,rent:[1,2,3]},
+  { name: "Euston Road", color: "lightBlue", setSize: 3, value: 1, id: 444, rent:[1,2,3]},
+  { name: "Pentonville Road", color: "lightBlue", setSize: 3, value: 1, id: 555 , rent:[1,2,3]},
+
+  // Pink
+  { name: "Pall Mall", color: "#FFCAD4", setSize: 3, value: 2, id: 666 , rent:[1,2,4]},
+  { name: "Whitehall", color: "#FFCAD4", setSize: 3, value: 2, id: 777 , rent:[1,2,4]},
+  { name: "Northumberland Avenue", color: "#FFCAD4", setSize: 3, value: 2, id: 888 , rent:[1,2,4]},
+
+  // Orange
+  { name: "Bow Street", color: "#EE964B", setSize: 3, value: 2, id: 999 , rent:[1,3,5] },
+  { name: "Marlborough Street", color: "#EE964B", setSize: 3, value: 2, id: 1000 , rent:[1,3,5]},
+  { name: "Vine Street", color: "#EE964B", setSize: 3, value: 2, id: 1111 , rent:[1,3,5]},
+
+  // Red
+  { name: "Strand", color: "red", setSize: 3, value: 3, id: 1222 , rent:[2,3,6]},
+  { name: "Fleet Street", color: "red", setSize: 3, value: 3, id: 1333 , rent:[2,3,6]},
+  { name: "Trafalgar Square", color: "red", setSize: 3, value: 3, id: 1444 , rent:[2,3,6]},
+
+  // Yellow
+  { name: "Leicester Square", color: "yellow", setSize: 3, value: 3, id: 1555 , rent:[2,4,6]},
+  { name: "Coventry Street", color: "yellow", setSize: 3, value: 3, id: 1666 , rent:[2,4,6]},
+  { name: "Piccadilly", color: "yellow", setSize: 3, value: 3, id: 1777 , rent:[2,4,6]},
+
+  // Green
+  { name: "Regent Street", color: "green", setSize: 3, value: 4, id: 1888 , rent:[2,4,7]},
+  { name: "Oxford Street", color: "green", setSize: 3, value: 4, id: 1999 , rent:[2,4,7]},
+  { name: "Bond Street", color: "green", setSize: 3, value: 4, id: 2000 , rent:[2,4,7]},
+
+  // Dark Blue
+  { name: "Park Lane", color: "#0D3B66", setSize: 2, value: 4, id: 2111 , rent:[3,8]},
+  { name: "Mayfair", color: "#0D3B66", setSize: 2, value: 4, id: 2222 , rent:[3,8]},
+
+  // Railroads
+  { name: "Railroad", color: "#36454F", setSize: 4, value: 2, id: 2333  , rent:[1,2,3,4]},
+  { name: "Railroad", color: "#36454F", setSize: 4, value: 2, id: 23044  , rent:[1,2,3,4]},
+  { name: "Railroad", color: "#36454F", setSize: 4, value: 2, id: 23144  , rent:[1,2,3,4]},
+  { name: "Railroad", color: "#36454F", setSize: 4, value: 2, id: 23455  , rent:[1,2,3,4]},
+
+  // Utilities
+  { name: "Utility", color: "#D8E2DC", setSize: 2, value: 2, id: 2466, rent:[1,2] },
+  { name: "Utility", color: "#D8E2DC", setSize: 2, value: 2, id: 24077, rent:[1,2] },
+
+
+
+
   // Wildcards
   { name: "Wildcard Any", color: "any", type: "wildcard", setSize: null, value: 'w', id: 25 , color:'#CDA4F8'},
   { name: "Wildcard Any", color: "any", type: "wildcard", setSize: null, value: 'w', id: 26 , color:'#CDA4F8'},
@@ -123,12 +179,12 @@ export const actionCards = [
   { name: "Rent Red/Yellow", color1:'red', color2:'yellow', category: "action", type: "rent", value: 1, id: 44 , color:'#7841B1'},
   { name: "Rent Railroad/Utility", color1:'#36454F', color2:'#D8E2DC', category: "action", type: "rent", value: 1, id: 45 , color:'#7841B1'},
 
-  { name: "House", category: "action", type: "upgrade", value: 3, id: 46 , color:'#7841B1'},
-  { name: "House", category: "action", type: "upgrade", value: 3, id: 461 , color:'#7841B1'},
-  { name: "House", category: "action", type: "upgrade", value: 3, id: 462 , color:'#7841B1'},
-  { name: "Hotel", category: "action", type: "upgrade", value: 4, id: 470 , color:'#7841B1'},
-  { name: "Hotel", category: "action", type: "upgrade", value: 4, id: 471 , color:'#7841B1'},
-  { name: "Hotel", category: "action", type: "upgrade", value: 4, id: 472 , color:'#7841B1'},
+  // { name: "House", category: "action", type: "upgrade", value: 3, id: 46 , color:'#7841B1'},
+  // { name: "House", category: "action", type: "upgrade", value: 3, id: 461 , color:'#7841B1'},
+  // { name: "House", category: "action", type: "upgrade", value: 3, id: 462 , color:'#7841B1'},
+  // { name: "Hotel", category: "action", type: "upgrade", value: 4, id: 470 , color:'#7841B1'},
+  // { name: "Hotel", category: "action", type: "upgrade", value: 4, id: 471 , color:'#7841B1'},
+  // { name: "Hotel", category: "action", type: "upgrade", value: 4, id: 472 , color:'#7841B1'},
   { name: "Forced Deal", category: "action", type: "swap", value: 3, id: 48 , color:'#7841B1'},
   { name: "Forced Deal", category: "action", type: "swap", value: 3, id: 480 , color:'#7841B1'},
   { name: "Forced Deal", category: "action", type: "swap", value: 3, id: 481 , color:'#7841B1'},
@@ -137,27 +193,12 @@ export const actionCards = [
   { name: "Sly Deal", category: "action", type: "steal", value: 3, id: 490 , color:'#7841B1'},
   { name: "Sly Deal", category: "action", type: "steal", value: 3, id: 491 , color:'#7841B1'},
   { name: "Deal Breaker", category: "action", type: "stealSet", value: 5, id: 50 , color:'#7841B1'},
-  { name: "Deal Breaker", category: "action", type: "stealSet", value: 5, id: 50 , color:'#7841B1'},
-  { name: "Deal Breaker", category: "action", type: "stealSet", value: 5, id: 50 , color:'#7841B1'},
-  { name: "Deal Breaker", category: "action", type: "stealSet", value: 5, id: 50 , color:'#7841B1'},
-  { name: "Deal Breaker", category: "action", type: "stealSet", value: 5, id: 50 , color:'#7841B1'},
-  { name: "Deal Breaker", category: "action", type: "stealSet", value: 5, id: 50 , color:'#7841B1'},
-  { name: "Deal Breaker", category: "action", type: "stealSet", value: 5, id: 50 , color:'#7841B1'},
-  { name: "Deal Breaker", category: "action", type: "stealSet", value: 5, id: 50 , color:'#7841B1'},
-  { name: "Deal Breaker", category: "action", type: "stealSet", value: 5, id: 50 , color:'#7841B1'},
-  { name: "Deal Breaker", category: "action", type: "stealSet", value: 5, id: 50 , color:'#7841B1'},
-  { name: "Deal Breaker", category: "action", type: "stealSet", value: 5, id: 50 , color:'#7841B1'},
-  { name: "Deal Breaker", category: "action", type: "stealSet", value: 5, id: 50 , color:'#7841B1'},
-  { name: "Deal Breaker", category: "action", type: "stealSet", value: 5, id: 50 , color:'#7841B1'},
-  { name: "Deal Breaker", category: "action", type: "stealSet", value: 5, id: 50 , color:'#7841B1'},
-  { name: "Deal Breaker", category: "action", type: "stealSet", value: 5, id: 50 , color:'#7841B1'},
-  { name: "Deal Breaker", category: "action", type: "stealSet", value: 5, id: 50 , color:'#7841B1'},
-  { name: "Deal Breaker", category: "action", type: "stealSet", value: 5, id: 50 , color:'#7841B1'},
+  { name: "Deal Breaker", category: "action", type: "stealSet", value: 5, id: 501 , color:'#7841B1'},
   { name: "Just Say No", category: "action", type: "block", value: 4, id: 51 , color:'#7841B1'},
   { name: "Just Say No", category: "action", type: "block", value: 4, id: 510 , color:'#7841B1'},
   { name: "Just Say No", category: "action", type: "block", value: 4, id: 511 , color:'#7841B1'},
-  { name: "Double The Rent", category: "action", type: "modifier", value: 1, id: 52 , color:'#7841B1'},
-  { name: "Double The Rent", category: "action", type: "modifier", value: 1, id: 520 , color:'#7841B1'}
+  // { name: "Double The Rent", category: "action", type: "modifier", value: 1, id: 52 , color:'#7841B1'},
+  // { name: "Double The Rent", category: "action", type: "modifier", value: 1, id: 520 , color:'#7841B1'}
 ].map(card => ({
     ...card,
     description: ""
