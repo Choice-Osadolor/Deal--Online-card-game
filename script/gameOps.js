@@ -112,8 +112,10 @@ export function getCardOptions(card,player){
     const nextPlayer =gameState.players[(gameState.currentPlayer + 1) % gameState.players.length];    
 
     if(card.type=='steal' || card.type=='stealSet' ||card.type=='swap'){
-        if(nextPlayer.playerProperties.length>=0){
+        if(nextPlayer.playerProperties.length==0){
                 options = options.filter(option => option !== "play");
+        }else{
+        options.push("play");
 
         }
     }

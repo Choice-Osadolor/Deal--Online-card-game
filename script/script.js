@@ -7,10 +7,28 @@ import { startTurn, endTurn,hasWon,endGame} from './flow.js';
 let startDate;
 let endDate;
 
-// document.getElementById('moneyearned').textContent=`Money Earned: ${gameState.winner.playerBank}m`;
-document.querySelectorAll('.turnstaken').forEach(container=>{
-    container.textContent=`Turns taken:${gameState.turnstaken}`;
-})
+function updateOverviewContent(winner) {
+    const selectedWinner = winner ?? gameState.winner;
+    const durationMs = startDate && endDate ? endDate - startDate : 0;
+    const minutes = Math.floor(durationMs / 60000);
+    const seconds = Math.floor((durationMs % 60000) / 1000);
+
+    document.querySelectorAll('.winner-name').forEach(container => {
+        container.textContent = `Winner: ${selectedWinner?.name ?? 'Unknown'}`;
+    });
+
+    document.querySelectorAll('.turnstaken').forEach(container => {
+        container.textContent = `Turns taken: ${gameState.turnstaken}`;
+    });
+
+    document.querySelectorAll('.game-duration').forEach(container => {
+        container.textContent = `Game Duration: ${minutes}m ${seconds}s`;
+    });
+
+    document.querySelectorAll('.moneyearned').forEach(container => {
+        container.textContent = `Money earned: ${selectedWinner?.playerBank ?? 0}m`;
+    });
+}
 
 
 let music = document.getElementById("myMusic");
@@ -45,21 +63,7 @@ startDate = Date.now();
             if(hasWon(player)){
                 endGame();
                 endDate = Date.now();
-                const timeDifferenceMS = endDate - startDate;
-                const timeDifferenceMins = Math.floor(timeDifferenceMS / 60000);
-
-    document.querySelectorAll('.moneyearned').forEach(container => {
-        container.textContent = `Time: ${minutes}m ${seconds}s`;
-    });
-document.querySelectorAll('.turnstaken').forEach(container=>{
-    container.textContent=`Turns taken:${gameState.turnstaken}`;
-})
-
-const winner=gameState.winner;
-document.querySelectorAll('.moneyearned').forEach(container=>{
-    container.textContent=`Money earned:${winner.playerBank}m`;
-})
-
+                updateOverviewContent(gameState.winner);
             }  
         }, 1000);
         if(!gameState.currentAction){

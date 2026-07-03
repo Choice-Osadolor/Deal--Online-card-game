@@ -4,17 +4,19 @@
 // function animatediscard(){}
 
 export function animateWin(){
-    const winscreen=document.querySelector('.overlay');
-    winscreen.classList.add('show');
+    const winscreen=document.getElementById('win-overlay');
+    winscreen?.classList.add('show');
 }
 
 export function animateLose() {
-    const overlay = document.querySelector(".overlay");
-    const screen = document.querySelector(".screen");
+    const overlay = document.getElementById("lose-overlay");
+    const screen = overlay?.querySelector(".screen");
 
-    screen.src = "assets/screens/lose.png";
+    if (screen) {
+        screen.src = "assets/screens/lose.png";
+    }
 
-    overlay.classList.add("show");
+    overlay?.classList.add("show");
 }
 
 export function animatedraw() {
