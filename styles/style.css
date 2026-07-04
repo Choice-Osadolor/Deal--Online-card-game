@@ -387,7 +387,7 @@ header article{
     height: 85%;
     background-size: cover;
     background-repeat: no-repeat;
-    background-image: url(/assets/components/overview-bg.png);
+    background-image: url('../assets/components/overview-bg.png');
 }
 
 .overlay.show{
