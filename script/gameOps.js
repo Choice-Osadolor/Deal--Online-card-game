@@ -411,7 +411,19 @@ playAudio();
             case "block":
                 gameState.currentAction=null;
             return;
+            case "wildcard":
+                console.log(gameState.currentAction)
+                gameState.currentAction.color=gameState.targetedSet;
+                player.playerProperties.push(gameState.currentAction);
+                updateFullSets(player);
+                console.log('worrrrk')
+                saveGame(gameState);
+                gameState.currentAction=null;
+                gameState.targetedSet=null;
+            return;
+
             }
+
 updateFullSets(player);
 updateFullSets(nextPlayer);
         saveGame(gameState);
@@ -426,7 +438,10 @@ updateFullSets(nextPlayer);
     }
     gameState.cardsPlayed++;
     console.log(gameState.cardsPlayed);
-
+        if(card.type=='wildcard'){
+        player.playerProperties.push(card); // Save in game state
+            gameState.currentAction=card;
+        }
     if (card.color && card.setSize != null) {
         player.playerProperties.push(card); // Save in game state
         updateFullSets(player);

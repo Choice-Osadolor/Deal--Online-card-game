@@ -109,13 +109,23 @@ export const properties = [
 
 
   // Wildcards
-  { name: "Wildcard Any", color: "any", type: "wildcard", setSize: null, value: 'w', id: 25 , color:'#CDA4F8'},
-  { name: "Wildcard Any", color: "any", type: "wildcard", setSize: null, value: 'w', id: 26 , color:'#CDA4F8'},
-  // { name: "Wildcard Any", color: "any", type: "wildcard", setSize: null, value: 'w', id: 27 , color:'#CDA4F8'},
-  // { name: "Wildcard Any", color: "any", type: "wildcard", setSize: null, value: 'w', id: 28 , color:'#CDA4F8'},
-  // { name: "Wildcard Any", color: "any", type: "wildcard", setSize: null, value: 'w', id: 29 , color:'#CDA4F8'}, 
-   { name: "Wildcard Any", color: "any", type: "wildcard", setSize: null, value: 0, id: 25 },
-  { name: "Wildcard Any", color: "any", type: "wildcard", setSize: null, value: 'w', id: 30 }
+  { name: "Wildcard Any", type: "wildcard", setSize: null, value: 'w', id: 25 , color:'#CDA4F8'},
+  { name: "Wildcard Any", type: "wildcard", setSize: null, value: 'w', id: 26 , color:'#CDA4F8'},
+  { name: "Wildcard Any", type: "wildcard", setSize: null, value: 'w', id: 27 , color:'#CDA4F8'},
+  { name: "Wildcard Any", type: "wildcard", setSize: null, value: 'w', id: 28 , color:'#CDA4F8'},
+  { name: "Wildcard Any", type: "wildcard", setSize: null, value: 'w', id: 29 , color:'#CDA4F8'},   { name: "Wildcard Any", type: "wildcard", setSize: null, value: 'w', id: 25 , color:'#CDA4F8'},
+  { name: "Wildcard Any", type: "wildcard", setSize: null, value: 'w', id: 26 , color:'#CDA4F8'},
+  { name: "Wildcard Any", type: "wildcard", setSize: null, value: 'w', id: 27 , color:'#CDA4F8'},
+  { name: "Wildcard Any", type: "wildcard", setSize: null, value: 'w', id: 28 , color:'#CDA4F8'},
+  { name: "Wildcard Any", type: "wildcard", setSize: null, value: 'w', id: 29 , color:'#CDA4F8'},   { name: "Wildcard Any", type: "wildcard", setSize: null, value: 'w', id: 25 , color:'#CDA4F8'},
+  { name: "Wildcard Any", type: "wildcard", setSize: null, value: 'w', id: 26 , color:'#CDA4F8'},
+  { name: "Wildcard Any", type: "wildcard", setSize: null, value: 'w', id: 27 , color:'#CDA4F8'},
+  { name: "Wildcard Any", type: "wildcard", setSize: null, value: 'w', id: 28 , color:'#CDA4F8'},
+  { name: "Wildcard Any", type: "wildcard", setSize: null, value: 'w', id: 29 , color:'#CDA4F8'},   { name: "Wildcard Any", type: "wildcard", setSize: null, value: 'w', id: 25 , color:'#CDA4F8'},
+  { name: "Wildcard Any", type: "wildcard", setSize: null, value: 'w', id: 26 , color:'#CDA4F8'},
+  { name: "Wildcard Any", type: "wildcard", setSize: null, value: 'w', id: 27 , color:'#CDA4F8'},
+  { name: "Wildcard Any", type: "wildcard", setSize: null, value: 'w', id: 28 , color:'#CDA4F8'},
+  { name: "Wildcard Any", type: "wildcard", setSize: null, value: 'w', id: 29 , color:'#CDA4F8'}, 
 ].map(card => ({
     ...card,
     category: "property",

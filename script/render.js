@@ -101,7 +101,11 @@ gameState.players.forEach(player =>{//for each player, append their properties
         if((gameState.currentAction.color1==propertySet.dataset.id)|| (gameState.currentAction.color2==propertySet.dataset.id))
         propertySet.classList.add("clickable");
     }
-deckCard.addEventListener("click", () => {
+
+    if (gameState.currentAction?.type === "wildcard" && !isOpponent) {
+        propertySet.classList.add("clickable");
+    }
+    deckCard.addEventListener("click", () => {
     // const cardId = Number(cardEl.dataset.id);
     // const foundCard = player.playerProperties.find(c => c.id === cardId);
     deckCard.classList.toggle("clicked");
@@ -113,7 +117,8 @@ deckCard.addEventListener("click", () => {
         gameState.targetedCard = gameState.selectedCard;
         gameState.selectedCard = null;
         return;
-    }
+}
+
     if (gameState.currentAction?.name === "Forced Deal") {
         // If a card hasnt  been targeted yet, then set the crd clciked, as selected(already targeted opponenets crad, ick yorus now))
         /*card hasnt been targetted= were at teh ssstart of our swap, and need to select then target idk*/
@@ -146,7 +151,10 @@ propertySet.addEventListener('click',()=>{
     propertySet.classList.toggle("clicked");
     playBtn.textContent='Confirm';
 
-
+    if (gameState.currentAction?.type=== "wildcard" ) {
+        gameState.targetedSet = propertySet.dataset.id;
+        console.log('Adding a wildcard for  '+gameState.targetedSet);
+    }
     if (gameState.currentAction?.name === "Deal Breaker" && isOpponent) {
         gameState.targetedSet = propertySet.dataset.id;
         console.log('im taking your set'+gameState.targetedSet);
