@@ -203,7 +203,7 @@ export function endGame(){
 }
 
 export function hasWon(player) {
-    if (player.fullSets == 2&& player.playerBank >= 0) {
+    if (player.fullSets === 2 && player.playerBank >= 0) {
     // if (player.fullSets ==1) {
 
         if (player.name === "You") {
