@@ -474,11 +474,11 @@ header article{
 }
 
 #play-btn{
-    background-image: url('/assets/components/play-btn.png');
+    background-image: url('../assets/components/play-btn.png');
 }
 
 #home-btn{
-    background-image: url('/assets/components/home-btn.png');
+    background-image: url('../assets/components/home-btn.png');
 }
 
 
