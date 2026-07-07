@@ -397,33 +397,30 @@ playAudio();
                 console.log('A set has been stolen');
                 return;
             case "rent":
-                // const propertySet = player.playerProperties.filter(p => p.color === gameState.targetedSet);               
-                // const rent = propertySet[0].rent[propertySet.length - 1];
-
-                const propertySet=player.playerProperties.filter(p=>p.color===gameState.targetedSet);
-                const rent=propertySet[0].rent[propertySet.length];
-                nextPlayer.playerBank-=rent;
-                player.playerBank+=rent;
-                gameState.currentAction=null;
-                gameState.targetedSet=null;
-                console.log('Opponent has been chaged rent, and WE UP');
+                chargeRent(player);
+                console.log('Opponent has been charged rent, and WE UP');
             return;
             case "block":
                 gameState.currentAction=null;
             return;
             case "wildcard":
-                console.log(gameState.currentAction)
-                gameState.currentAction.color=gameState.targetedSet;
-                player.playerProperties.push(gameState.currentAction);
-                updateFullSets(player);
-                console.log('worrrrk')
+                const wildcardSet = gameState.targetedSet || chooseBestSet(player);
+                if (wildcardSet) {
+                    gameState.currentAction.color = wildcardSet;
+                    const alreadyPlaced = player.playerProperties.some(card => card.id === gameState.currentAction.id);
+                    if (!alreadyPlaced) {
+                        player.playerProperties.push(gameState.currentAction);
+                    }
+                    updateFullSets(player);
+                    console.log('Wildcard resolved for set:', wildcardSet);
+                }
                 saveGame(gameState);
-                gameState.currentAction=null;
-                gameState.targetedSet=null;
+                gameState.currentAction = null;
+                gameState.targetedSet = null;
             return;
 
             }
-
+            
 updateFullSets(player);
 updateFullSets(nextPlayer);
         saveGame(gameState);
@@ -523,51 +520,150 @@ if(player.name=='Computer'){
     console.log('TESTING COMPUTERS RESOLVE FOR ACTIONS');
     switch(card.type) {
         case "steal":
-        gameState.targetedCard=nextPlayer.playerProperties[0];
+        // gameState.targetedCard=nextPlayer.playerProperties[0];
+        gameState.targetedCard=chooseBestProperty(player);
+        // Returns a full card object
+        
         saveGame(gameState);
         playCard(player);
         console.log('Your Card has been stolen')
             break;
         case "swap":
-        gameState.targetedCard=nextPlayer.playerProperties[0];
-        gameState.selectedCard=player.playerProperties[0];
+    gameState.targetedCard = chooseBestProperty(player);
+    gameState.selectedCard = chooseSwapProperty(player);
+
         saveGame(gameState);
         playCard(player);
             break;
         case "stealSet":
-            const fullSet = nextPlayer.playerProperties.find(card =>
-                isFullSet(nextPlayer, card.color)
-            );
-            if (fullSet) {
-                gameState.targetedSet = fullSet.color;
-                saveGame(gameState)
+            // const fullSet = nextPlayer.playerProperties.find(card =>
+            //     isFullSet(nextPlayer, card.color)
+            // );
+            // if (fullSet) {
+            //     gameState.targetedSet = fullSet.color;
+            //     saveGame(gameState)
+            //     playCard(player);
+            // }
+
+                gameState.targetedSet = chooseBestFullSet(nextPlayer);
+
+    if (gameState.targetedSet) {
+        saveGame(gameState);
+        playCard(player);
+    }
+            break;
+        case "rent":
+            const bestSet = chooseBestSet(player);
+            gameState.targetedSet = bestSet;
+            saveGame(gameState);
+            playCard(player);
+            break;
+        case "wildcard":
+            gameState.targetedSet = chooseBestSet(player);
+            saveGame(gameState);
+            if (gameState.targetedSet) {
                 playCard(player);
             }
             break;
-        case "rent":
-const colours = [...new Set(
-    player.playerProperties.map(card => card.color)
-)];
-
-const bestColour = colours[0]; // for now
-
-gameState.targetedSet = bestColour;
-saveGame(gameState);
-playCard(player);
-        
-        }}
-        
+        }
+    }
 }
 
 
 // Strategise
-// function chooseBestProperty(player){
+function chooseBestProperty(player) {
+const opponent =gameState.players[(gameState.currentPlayer + 1) % gameState.players.length];
+const opponentProperties = opponent.playerProperties.filter( property => !isFullSet(opponent, property.color));
 
-// }
+    const scoredProperties =opponentProperties.map(property => {
+        const matchingColor = player.playerProperties.some( myProperty => myProperty.color == property.color);
+        const sameColorCards = opponent.playerProperties.filter( card => card.color === property.color);
+        const progress = sameColorCards.length /(sameColorCards[0]?.setSize || 1);
+        // Maximum value
+        const rentValue = sameColorCards[0]?.rent?.[Math.max(0, sameColorCards.length - 1)] ?? 0;
 
-// function chooseBestMove(player){
+// dev community code
+        return {property,score:(matchingColor ?1000 : 0) + (rentValue * 20) + (progress * 100) + property.value};
+    });
 
-// }
+    scoredProperties.sort((a,b)=> b.score -a.score);
+    return scoredProperties[0]?.property || opponent.playerProperties[0] || null;
+}
+
+function chooseBestSet(player) {
+    const opponent = gameState.players[(gameState.currentPlayer + 1) % gameState.players.length];
+    const colours = [...new Set(player.playerProperties.map(card => card.color))];
+
+    const scoredSets = colours.map(colour => {
+        const cards = player.playerProperties.filter(card => card.color === colour);
+        const setSize = cards[0]?.setSize || 1;
+        const progress = cards.length / setSize;
+        const rentValue = cards[0]?.rent?.[Math.max(0, cards.length - 1)] ?? 0;
+        const opponentHasColor = opponent.playerProperties.some(card => card.color === colour);
+
+        return {
+            colour,
+            score: (rentValue * 25) + (progress * 100) + (opponentHasColor ? 15 : 0) + cards.length
+        };
+    });
+
+    scoredSets.sort((a, b) => b.score - a.score);
+    return scoredSets[0]?.colour || null;
+}
+
+function chargeRent(player) {
+    const targetPlayer = gameState.players[(gameState.currentPlayer + 1) % gameState.players.length];
+    const selectedSet = gameState.targetedSet || chooseBestSet(player);
+    const propertySet = player.playerProperties.filter(card => card.color === selectedSet);
+    const setCard = propertySet[0];
+    const rentAmount = setCard?.rent?.[Math.max(0, propertySet.length - 1)] ?? 0;
+
+    if (selectedSet && propertySet.length > 0 && rentAmount > 0) {
+        targetPlayer.playerBank -= rentAmount;
+        player.playerBank += rentAmount;
+    }
+
+    gameState.currentAction = null;
+    gameState.targetedSet = null;
+    saveGame(gameState);
+}
+
+function chooseBestFullSet(player) {
+    const colours = [...new Set(player.playerProperties.map(card => card.color))];
+
+    const fullSets = colours
+        .filter(colour => isFullSet(player, colour))
+        .map(colour => {
+            const cards = player.playerProperties.filter(card => card.color === colour);
+            const rentValue = cards[0]?.rent?.[Math.max(0, cards.length - 1)] ?? 0;
+            return {
+                colour,
+                score: (rentValue * 25) + cards.reduce((total, card) => total + card.value, 0)
+            };
+        })
+        .sort((a, b) => b.score - a.score);
+
+    return fullSets[0]?.colour || null;
+}
+
+function chooseSwapProperty(player) {
+    let best = null;
+
+    player.playerProperties.forEach(property => {
+        const matching = player.playerProperties.filter(
+            p => p.color === property.color
+        );
+// Only one
+        if (matching.length === 1) {
+            if (!best || property.value < best.value) {
+                best = property;
+            }
+        }
+
+    });
+    // else
+    return best || player.playerProperties[0];
+}
 
 export function updateFullSets(player) {
 

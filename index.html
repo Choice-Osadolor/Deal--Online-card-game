@@ -6,13 +6,71 @@
     <title>Document</title>
     <link rel="stylesheet" href="styles/style.css">
 </head>
-<body id="home-bg">
+<body>
 
+    <section id="home-bg">
 <a href="./game.html">
     <button id="startgame_btn"></button>
 
-</a>
+</a>        
+    </section>
 
+
+    <button command="show-modal" commandfor="my-dialog"  style="position: absolute; top: 0%; left: 0%; font-size: xx-large; color: black;">How to Play</button>
+
+        <dialog id="my-dialog" style="background-color: transparent;">
+
+        <div class="tab">
+  <button commandfor="my-dialog" command="close">Close</button>
+
+          <button class="tablinks" onclick="openCity(event, 'General')">General</button>
+          <button class="tablinks" onclick="openCity(event, 'Cards')">Cards</button>
+        </div>
+
+        <!-- Tab content -->
+        <div id="General" class="tabcontent" style="display: block;">
+          <img src="/assets/rules.png" alt="" style="width: 80%;">
+
+        </div>
+
+        <div id="Cards" class="tabcontent">
+          <img src="/assets/rules-pg2.png" alt="" style="width: 80%;">
+
+        </div>
+    </dialog>
+
+<footer style="position: absolute; bottom:0%; width: 100%; justify-content: space-between; " class="flex-row">
+    <nav class="flex-row" style="justify-content: space-evenly; width: 20%;">
+    <a href="https://github.com/Choice-Osadolor">Github</a>
+    <a href="https://choice-osadolor.github.io/Portfolio2026/">Portfolio</a>
+    </nav>
+    <p>Created by Choice Osadolor</p>
+
+
+</footer>
+
+<script>
+  function openCity(evt, cityName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
 <script type="module" src="script/script.js"></script>
 </body>
 </html>

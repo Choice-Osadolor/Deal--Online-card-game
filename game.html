@@ -11,6 +11,29 @@
 <body>
 
 <header>
+<button command="show-modal" commandfor="my-dialog" id="rules-btn" >Rules</button>
+
+    <dialog id="my-dialog" style="background-color: transparent;">
+
+        <div class="tab">
+  <button commandfor="my-dialog" command="close">Close</button>
+
+          <button class="tablinks" onclick="openCity(event, 'General')">General</button>
+          <button class="tablinks" onclick="openCity(event, 'Cards')">Cards</button>
+        </div>
+
+        <!-- Tab content -->
+        <div id="General" class="tabcontent" style="display: block;">
+          <img src="/assets/rules.png" alt="" style="width: 80%;">
+
+        </div>
+
+        <div id="Cards" class="tabcontent">
+          <img src="/assets/rules-pg2.png" alt="" style="width: 80%;">
+
+        </div>
+    </dialog>
+
   <audio id="myMusic" controls loop>
   <source src="./assets/music/zombiepop.mp3" type="audio/mpeg">
 Your browser does not support the audio element.
@@ -167,6 +190,28 @@ Your browser does not support the audio element.
 </template>
 
 
+<script>
+  function openCity(evt, cityName) {
+  // Declare all variables
+  var i, tabcontent, tablinks;
+
+  // Get all elements with class="tabcontent" and hide them
+  tabcontent = document.getElementsByClassName("tabcontent");
+  for (i = 0; i < tabcontent.length; i++) {
+    tabcontent[i].style.display = "none";
+  }
+
+  // Get all elements with class="tablinks" and remove the class "active"
+  tablinks = document.getElementsByClassName("tablinks");
+  for (i = 0; i < tablinks.length; i++) {
+    tablinks[i].className = tablinks[i].className.replace(" active", "");
+  }
+
+  // Show the current tab, and add an "active" class to the button that opened the tab
+  document.getElementById(cityName).style.display = "block";
+  evt.currentTarget.className += " active";
+}
+</script>
 <script type="module" src="script/script.js"></script>
 <!-- <script>    alert("Hi There!, This is 'DEAL!', a digital rendition of monopoly deal's card game, the goal is to stay out of debt and complete two properties to win")
 </script> -->

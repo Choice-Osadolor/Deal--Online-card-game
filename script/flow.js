@@ -1,8 +1,34 @@
 import { animatedraw, animateLose, animateWin } from "./animations.js";
-import { playCard,drawCard,getCurrentPlayer, discardCard} from "./gameOps.js";
+import { playCard,drawCard,getCurrentPlayer, discardCard, bankCard} from "./gameOps.js";
 import { gameState } from "./gameState.js";
 import { updateGame ,dealCards} from "./render.js";
 import { saveGame } from "./storage.js";
+
+
+function canComputerPlayAction(card, player) {
+    const opponent = gameState.players[(gameState.currentPlayer + 1) % gameState.players.length];
+    if (card.type === "rent") {
+        const requiredColors = [card.color1, card.color2]
+            .filter(Boolean)
+            .map(normalizeColor);
+        if (requiredColors.length === 0) {
+            return player.playerProperties.length > 0;
+        }
+
+        return player.playerProperties.some(property =>
+          requiredColors.includes(String(color || "").toLowerCase().replace(/\s+/g, ""))
+        );
+    }
+    if (card.type === "steal" || card.type === "stealSet" || card.name === "Forced Deal" || card.type === "swap") {
+        if (!opponent?.playerProperties?.length) {
+            return false;
+        }if ((card.type === "swap" || card.name === "Forced Deal") && player.playerProperties.length === 0) {
+            return false;
+        }
+    return true;
+    }
+    return true;
+}
 
 export async function startTurn(){
 const startDate = new Date('2023-08-15T00:00:00');
@@ -77,7 +103,11 @@ console.log("Computer turn started");
         }else if(card.category=='action'){
             gameState.selectedCard=card;
             try {
-                playCard(player);
+                if (canComputerPlayAction(card, player)) {
+                    playCard(player);
+                } else {
+                    bankCard(card, player);
+                }
             } catch (err) {
                 console.error("AI failed while playing:", err);
             }                
@@ -85,30 +115,86 @@ console.log("Computer turn started");
         }     
            
     })
-
-
-
-    // if the difference is greater than 0, discard card
-// Eveyrtime a card is discarded, difference --
     setTimeout(() => {
         endTurn()
     }, 2000);
 
 
 }
+// export function computerTurn() {
+// console.log("Computer turn started");
+//     const nextPlayer =gameState.players[(gameState.currentPlayer + 1) % gameState.players.length];    
 
-// function computerResolveAction(player){
+//     const player = getCurrentPlayer();
 
-//     switch (gameState.currentAction.name) {
-//         case 'Sly Deal':
-//         // 
-//             break;
-    
-//         default:
-//             break;
-//     }
-//     playCard(player)
+//     player.playerHand.forEach((card,i)=>{
+//         const matchingCards = player.playerProperties.filter(
+//             p => p.color === card.color
+//         );
+
+//         if (matchingCards.length > 0 || card.category=='property') {
+//             if(card.type=='wildcard'){
+//                 return
+//             }else{
+//             gameState.selectedCard = card;
+//             }
+//             try {
+//                 playCard(player);
+//             } catch (err) {
+//                 console.error("AI failed while playing:", err);
+//             }            
+//             updateGame();
+//             setTimeout(() => {
+//                 if(hasWon(player)){
+//                     endGame();
+//                 }  
+//             }, 1000);
+//         }else if(card.type=='money'){
+//             gameState.selectedCard=card;
+//             try {
+//                 playCard(player);
+//             } catch (err) {
+//                 console.error("AI failed while playing:", err);
+//             }                
+//             updateGame();
+//         }else if(card.category=='action'){
+//             gameState.selectedCard=card;
+
+//             if(card.type=='steal' || card.type=='swap' || card.type=='stealSet'){
+//                 if(nextPlayer.playerProperties.length==0){
+//                     // Dont play card
+//                     bankCard(card,player);
+//                 }
+//             }else if(card.type=='swap' || card.type=='rent'){
+//                 if(player.playerProperties.length==0){
+//                     bankCard(card,player);
+//                 }
+//             }else{
+
+//             try {
+//                 playCard(player);
+//             } catch (err) {
+//                 console.error("AI failed while playing:", err);
+//             }               
+//         }
+
+             
+//             updateGame();    
+//         }     
+           
+//     })
+
+
+
+//     // if the difference is greater than 0, discard card
+// // Eveyrtime a card is discarded, difference --
+//     setTimeout(() => {
+//         endTurn()
+//     }, 2000);
+
+
 // }
+
 
 export function endGame(){
 
@@ -117,8 +203,8 @@ export function endGame(){
 }
 
 export function hasWon(player) {
-    // if (player.fullSets >= 2 && player.playerBank >= 0) {
-    if (player.fullSets ==1) {
+    if (player.fullSets == 3 && player.playerBank >= 0) {
+    // if (player.fullSets ==1) {
 
         if (player.name === "You") {
             animateWin();
