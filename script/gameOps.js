@@ -269,12 +269,12 @@ export function createCard(card, loc, hidden = false) {
                             break; 
  
                         case "Debt Collector":
-                            card.description='Collect 5m from any opponent';
+                            card.description='Collect 5m from any player';
                             i.setAttribute('src',"./assets/illustrations/debt.png");    
                                                     break; 
-                        case "Its my Birthday":
-                            card.description='Collect 5m from any opponent';
-                            i.setAttribute('src',"./assets/illustrations/debt.png");    
+                        case "It's My Birthday":
+                            card.description='Collect 2m from every player';
+                            i.setAttribute('src',"./assets/illustrations/birthday.png");    
                                                     break; 
  
                         case "Pass Go":
