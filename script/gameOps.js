@@ -265,8 +265,21 @@ export function createCard(card, loc, hidden = false) {
                             break;              
                         case "Forced Deal":
                             card.description='swap any property with another player';
-                            i.setAttribute('src',"./assets/illustrations/swap.png");                
-                        default:
+                            i.setAttribute('src',"./assets/illustrations/swap.png");       
+                            break; 
+ 
+                        case "Debt Collector":
+                            card.description='Collect 5m from any opponent';
+                            i.setAttribute('src',"./assets/illustrations/debt.png");    
+                                                    break; 
+                        case "Its my Birthday":
+                            card.description='Collect 5m from any opponent';
+                            i.setAttribute('src',"./assets/illustrations/debt.png");    
+                                                    break; 
+ 
+                        case "Pass Go":
+                            card.description='Go again and draw two more cards';
+                            i.setAttribute('src',"./assets/illustrations/pass.png");           
                             break;
                     }
                 })    
